@@ -1,0 +1,46 @@
+body {
+    font-family: "Times New Roman", serif;
+    font-size: 20px;
+    line-height: 1.2;
+    margin: 0 50px 50px 50px;
+}
+
+h1,
+h2,
+h3 {
+    font-family: cursive;
+    color: #000;
+    line-height: 20px;
+}
+
+h1 {
+    font-size: 45px;
+}
+
+h2 {
+    font-size: 35px;
+}
+
+a {
+    font-style: italic;
+    color: #000;
+    text-decoration: none;
+}
+
+p {
+    color: #333;
+}
+
+pre {
+    font-size: 14px;
+}
+
+.nav {
+    list-style: none;
+    text-align: center;
+}
+
+.nav li {
+    display: inline;
+    margin: 40px;
+}
