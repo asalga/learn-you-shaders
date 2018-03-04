@@ -3,13 +3,81 @@
 
 <head>
     <title>Learn you shaders</title>
-    <link rel="stylesheet" type="text/css" href="../style.css" />
+    <!-- <link rel="stylesheet" href="/css/bootstrap.css" /> -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../lib/codemirror.css">
+    <script src="../lib/codemirror.js"></script>
+    <script src="../mode/markdown/js.js"></script>
+    <!-- <script src="/lib/jquery-3.2.1.min.js"></script> -->
 </head>
 
 <body>
-    <header>header</header>
-    <div id="content">content</div>
-    <footer></footer>
+    <header>
+        <h1>1.0</h1>
+    </header>
+    <hr/>
+    <div id="content">
+        <h2>Getting Started</h2>
+        <p>
+            Most of the work will be done in a fragment shader, but we'll need an environment to give us a WebGL context. We'll use p5.js for the foundation.
+            <textarea class='glsl-code'>
+asdf
+        	</textarea>
+        </p>
+        <p></p>
+        <hr/>
+        <h2>Hello World</h2>
+        <p>Go ahead and paste this into the frag.glsl file.</p>
+        <textarea class='glsl-code'>
+// 0.0 Hello World
+#ifdef GL_ES
+  precision mediump float;
+#endif
+void main() {
+  gl_FragColor = vec4(0.33, 0.66, 0.99, 1.0);
+}</textarea>
+        <p>
+            Let's break down what we're seeing. If you notice that the syntax looks strangely similar to C, you're right! GLSL is based on the C language because it was/is popular. Lots of developers were familiar with it, so the comittee decided to use it. There's some other 'non-C' looking stuff. The vec4 is part of the language that defines a 4-dimentional vector. And the constructor syntax is quite handy.
+        </p>
+        <p>
+            <em>gl_FragColor</em> is a built-in. You need to assign a value to this variable for the shader to make sense. After all, that's what a shader does. Computer some stuff and assign a color to a fragment/pixel.
+        </p>
+        <h3>Normalized Colours</h3>
+        <p>The colours used in a shader range from 0 to 1. Maybe you're used to 0-255? Have you ever used colorModeRGB(1) in Processing? Similar idea.</p>
+        <hr/>
+        <h2>Hello, Where is (0,0) !?</h2>
+        <p>
+            When I first start messing around with a graphics context, I need to know where 0,0 is. Sometimes its top left, sometimes bottom left...I could tell you where it is for shaders--but let's write some code to prove it ourselves!
+        </p>
+
+        <p>
+        	What we'll do is tell the shader: Hey, can you draw a red box when the x pixel and y pixel are less then 10? From that we can infer where 0,0 is.
+        </p>
+        <textarea class='glsl-code'>
+// 0.1  Hello, Where is [0,0] !?
+
+void main() {
+  gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+
+  if(gl_FragCoord.x < 10.0 && gl_FragCoord.y < 10.0){
+    gl_FragColor += vec4(1.0);
+  }
+}</textarea>
+
+<p>
+	So it turns out that the 0,0 is at the bottom left. Maybe one day you'll take a break from shaders and come back a few months later. instead of doing a search, you can now just write this little snippet to prove it for yourself and jog your memory.
+	</p>
+
+    </div>
+    <hr/>
+    <footer>
+        <ul class="nav">
+            <li><a href="">&lt; Prev</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="">Next &gt;</a></li>
+        </ul>
+    </footer>
+    <script src="/js/init-cm.js"></script>
 </body>
 
 </html>

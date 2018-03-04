@@ -3,6 +3,7 @@ body {
     font-size: 20px;
     line-height: 1.2;
     margin: 0 50px 50px 50px;
+    color: #333;
 }
 
 code {
@@ -29,13 +30,15 @@ h2 {
 
 a {
     font-style: italic;
-    color: #000;
+    color: #336699;
     text-decoration: none;
 }
 
-p {
-    color: #333;
+a:hover {
+    text-decoration: underline;
 }
+
+p {}
 
 pre {
     font-size: 4px;

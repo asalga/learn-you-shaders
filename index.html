@@ -3,26 +3,50 @@
 
 <head>
     <title>Learn you shaders</title>
-    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
 </head>
 
 <body>
-    <header>Header</header>
+    <header>
+        <h1>Header</h1>
+    </header>
     <hr/>
     <div id="content">
-        <h2>Header 2</h2>
-        <p>Intended Audience</p>
-        <pre>
-// 0.0  Hello World
-#ifdef GL_ES
-  precision mediump float;
-#endif
-
-void main() {
-  gl_FragColor = vec4(0.33, 0.66, 0.99, 1.0);
-}
-        </pre>
-        <p>lorem</p>
+        <h2>Chapters</h2>
+        <ol>
+            <li>
+                <p><a href="/00">Background</a></p>
+            </li>
+            <li>
+                <p><a href="/01">First Steps</a></p>
+                <ol>
+                    <li>Getting Started</li>
+                    <li>Hello World</li>
+                    <li>Hello 0,0</li>
+                    <li>Colours</li>
+                </ol>
+            </li>
+            <li>
+                <p>Second Steps</p>
+                <ol>
+                    <li>Textures</li>
+                    <li>Randomness</li>
+                </ol>
+            </li>
+            <li>
+                <p>Effects</p>
+                <ol>
+                    <li>Edge Detection</li>
+                    <li>Blurring</li>
+                </ol>
+            </li>
+            <li>
+                <p>Advanced Stuff</p>
+                <ol>
+                    <li>Raymarching</li>
+                </ol>
+            </li>
+        </ol>
     </div>
     <hr/>
     <footer>
@@ -33,47 +57,3 @@ void main() {
         </ul>
     </footer>
 </body>
-<!-- 
-<body>
-    <div id="content">
-        Andor Saga March 2018 Intended Audience Processing / P5.js / Processing.js developers who have little or no experience with fragment shaders.
-        <pre>
-
-        </pre>
-        <pre>
-// 0.1  Hello, Where is [0,0] ?
-#ifdef GL_ES
-  precision mediump float;
-#endif
-
-void main() {
-  gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-
-  if(gl_FragCoord.x < 10.0 && gl_FragCoord.y < 10.0){
-  gl_FragColor += vec4(1.0);
-  }
-}
-        </pre>
-        <pre>
-// Circle
-#ifdef GL_ES
-  precision mediump float;
-#endif
-
-uniform vec2 res;
-
-float circle(vec2 p, float r){
-  vec2 aspectRatio = vec2(res.x / res.y, 1.0);
-  vec2 uv = gl_FragCoord.xy / res * 2.0 - 1.0;
-  return 1.0 - step(r, distance(uv * aspectRatio, p));
-}
-
-void main() {
-  vec3 c = vec3(circle(vec2(0.0), 100.0));
-  gl_FragColor = vec4( c, 1.0 );
-}
-        </pre>
-    </div>
-</body>
-
-</html> -->
