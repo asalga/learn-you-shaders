@@ -5,6 +5,12 @@ body {
     margin: 0 50px 50px 50px;
 }
 
+code {
+    display: inline-block;
+    font-size: 1.25em;
+    font-family: monospace;
+}
+
 h1,
 h2,
 h3 {
@@ -32,7 +38,7 @@ p {
 }
 
 pre {
-    font-size: 14px;
+    font-size: 4px;
 }
 
 .nav {
@@ -43,4 +49,10 @@ pre {
 .nav li {
     display: inline;
     margin: 40px;
+}
+
+.CodeMirror,
+.CodeMirror .cm-s-default {
+    height: auto !important;
+    font-size: 14px
 }
