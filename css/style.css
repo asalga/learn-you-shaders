@@ -8,8 +8,10 @@ body {
 
 code {
     display: block;
-    /*font-size: 1.25em;*/
     font-family: monospace;
+}
+pre{
+    font-size: 16px;
 }
 
 ul.exercises li {
@@ -31,6 +33,12 @@ h1 {
 
 h2 {
     font-size: 35px;
+}
+
+hr {
+    width: 500px;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 
@@ -77,5 +85,6 @@ a:hover {
 .CodeMirror,
 .CodeMirror .cm-s-default {
     height: auto !important;
-    font-size: 14px
+    font-size: 14px;
+    border: 1px solid #aaa;
 }
