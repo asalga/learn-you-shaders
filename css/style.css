@@ -33,6 +33,16 @@ h2 {
     font-size: 35px;
 }
 
+
+.title {
+    font-family: cursive;
+    text-align: center;
+    color: #8D8D8D;
+    font-size: 45px;
+    margin-bottom: 80px;
+    /*text-decoration: underline;*/
+}
+
 a {
     font-style: italic;
     color: #336699;
@@ -43,10 +53,15 @@ a:hover {
     text-decoration: underline;
 }
 
-p {}
+.advanced {
+    border: 1px solid #888;
+    background-color: #efefef;
+    font-size: 18px;
+    padding: 20px;
+}
 
-pre {
-    font-size: 4px;
+.icon {
+    width: 20px;
 }
 
 .nav {
