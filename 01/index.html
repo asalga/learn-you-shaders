@@ -84,47 +84,10 @@ p5
         </p>
         <p>
             Update the sketch code to load the non-yet-existing-shaders:
-            <textarea class='glsl-code'>
-let sh;
-
-function preload(){
-  sh = loadShader('data/vert.glsl', 'data/frag.glsl');
-}
-
-function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
-  shader(sh);
-  rect(0, 0, windowWidth, windowHeight, 1, 1);
-}</textarea>
+            <textarea class='glsl-code' data-example='shaders/sketch.js'></textarea>
             <p>
                 Close your eyes and paste this into vert.glsl:
-                <textarea class='glsl-code'>
-#ifdef GL_ES
-  precision highp float;
-  precision mediump int;
-#endif
-
-attribute vec3 aPosition;
-attribute vec4 aVertexColor;
-attribute vec3 aNormal;
-attribute vec2 aTexCoord;
-
-varying vec3 var_vertPos;
-varying vec4 var_vertCol;
-varying vec3 var_vertNormal;
-varying vec2 var_vertTexCoord;
-
-uniform mat4 uModelViewMatrix;
-uniform mat4 uProjectionMatrix;
-uniform mat3 uNormalMatrix;
-
-void main() {
-  gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1.0 );
-  var_vertPos = aPosition;
-  var_vertCol = aVertexColor;
-  var_vertNormal = aNormal;
-  var_vertTexCoord = aTexCoord;
-}</textarea>
+                <textarea class='glsl-code' data-example='shaders/vert.glsl'></textarea>
             </p>
             <p>
                 Just ignore everything just you saw. Luckily the fragment shader is a easier on the eyes. Open your eyes and paste the following in frag.glsl:
@@ -229,9 +192,7 @@ rect(0, 0, windowWidth, windowHeight, 1, 1);</textarea>
     </footer>
 
     <script src="/js/init-cm.js"></script>
-    <script>
-    console.log('test');
-    </script>
+
 </body>
 
 </html>
