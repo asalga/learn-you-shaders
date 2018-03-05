@@ -25,18 +25,7 @@
         <p>We're going to learn how to draw a circle. Yay</p>
 
 
-        <textarea class='glsl-code'>
-uniform vec2 res;
-
-float circle(vec2 p, float r){
-  vec2 aspectRatio = vec2(res.x / res.y, 1.0);
-  vec2 uv = gl_FragCoord.xy / res * 2.0 - 1.0;
-  return 1.0 - step(r, distance(uv * aspectRatio, p));
-}
-
-void main() {
-  gl_FragColor = vec4( vec3(   circlePx(vec2(0.), 100.)), 1. );
-}</textarea>
+        <textarea class='glsl-code' data-example="shaders/circle.glsl">asdf</textarea>
 
 
         <!-- ********* -->
@@ -59,9 +48,9 @@ void main() {
     <hr/>
     <footer>
         <ul class="nav">
-            <li><a href="">&lt; Prev</a></li>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="">Next &gt;</a></li>
+            <li><a onclick="goPrev();">&lt; Prev</a></li>
+            <li><a onclick="goHome();">Home</a></li>
+            <li><a onclick="goNext();">Next &gt;</a></li>
         </ul>
     </footer>
 
