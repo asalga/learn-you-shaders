@@ -54,28 +54,28 @@
         <script>
         let sh;
 
-        var vs = `
-        precision highp float;
-        varying vec2 vPos;
-        attribute vec3 aPosition;
-        void main() {
-            vPos = (gl_Position = vec4(aPosition,1.0)).xy;
-        }`;
+        var vs = `  precision highp float;
+                    varying vec2 vPos;
+                    attribute vec3 aPosition;
+                    void main() {
+                        vPos = (gl_Position = vec4(aPosition,1.0)).xy;
+                    }`;
+
+        var fs = `  #ifdef GL_ES
+                    precision mediump float;
+                    #endif
+                    void main() {
+                        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+                    }`;
 
         var sk = function(p) {
             p.preload = function() {
-                sh = p.createShader(vs, `#ifdef GL_ES
-precision mediump float;
-#endif
-void main() {gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);}`);
+                sh = p.createShader(vs, fs);
             }
 
             p.setup = function() {
-                console.log('1');
                 p.createCanvas(123, 123, p.WEBGL);
-                // p.translate(-width / 2, -height / 2);
                 p.shader(sh);
-                console.log('3');
                 p.quad(-1, -1, 1, -1, 1, 1, -1, 1);
                 p.noLoop();
             }
