@@ -14,8 +14,6 @@ function goTo(offset) {
     // ["http:", "", "localhost:5000", "04", ""]
     let tokens = window.location.href.split('/');
     let tokenIdx = tokens.length - 2;
-
-    // +1 since we're going next! :)
     let num = parseInt(tokens[tokenIdx]) + offset;
 
     // only append '0' is needed
