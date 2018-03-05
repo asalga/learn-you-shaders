@@ -21,47 +21,121 @@
         <p>
             Most of the work will be done in a fragment shader, but we'll need an environment to give us a WebGL context. We'll use p5.js for the foundation. Let's get that setup first. Once we do...oh, boy it'll be exciting!
         </p>
-        
-
-
-
-
-
-
-
-
-
-        <p></p>
-
-        <hr/>
-        <h2>Hello World</h2>
-        <p>Go ahead and paste this into the frag.glsl file.</p>
+        <p>
+            P5.js allows us to load shaders in two different ways. As strings that contain the <b>actual code</b> or as strings that point to paths, like such:
+            <br>
+            <br>
+            <textarea class='glsl-code'>loadShader('data/vert.glsl', 'data/frag.glsl');</textarea>
+            <br> Using the latter is way better since we'll get the benefit of syntax highlighting. We can just open the glsl file and edit/save/reload....Its just that there's one small hurdle we need to get over. For JavaScript to start loading files from your filesystem poses a security risk, we'll need to setup a server. Once we get over that hurdle, it's smooth shader sailing.
+        </p>
+        <h2>Local Server</h2>
+        <p>
+            I'm not actually going to help you setup a server. The p5.js team has already created instructions on how to do that. So, hop on over to: <a href="https://github.com/processing/p5.js/wiki/Local-server">their page</a> and come back once you have it working.
+        </p>
+        <h2>Blank Slate</h2>
+        <p>
+            So you've got your server setup. Let's go!
+        </p>
+        <p>
+            <ol>
+                <li>Download the complete p5.js zip file and extract the folder</li>
+            </ol>
+        </p>
+        <p>
+            Let's first make sure everything is working. Open the empty-example/sketch.js file and let's get a WebGL context.
+        </p>
         <textarea class='glsl-code'>
-// 0.0 Hello World
+function setup() {
+    createCanvas(400, 400,WEBGL);
+}
+
+function draw() {
+    background(0);
+}</textarea>
+        <p>
+            You should see a black canvas. This shows us our system is happy with WebGL. As mentioned, I said I wasn't going to go into vertex shaders, so please blindly do the following: - create a data folder in empty-example - create 2 files: vert.glsl and frag.glsl
+        </p>
+        <p>
+            Update the sketch code to load the (non-yet-existing-shaders):
+            <textarea class='glsl-code'>
+let sh;
+
+function preload(){
+  sh = loadShader('data/vert.glsl', 'data/frag.glsl');
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  shader(sh);
+  rect(0, 0, windowWidth, windowHeight, 1, 1);
+}
+</textarea>
+            <p>
+                Close your eyes and paste this into vert.glsl:
+            </p>
+            <textarea class='glsl-code'>
+#ifdef GL_ES
+  precision highp float;
+  precision mediump int;
+#endif
+
+attribute vec3 aPosition;
+attribute vec4 aVertexColor;
+attribute vec3 aNormal;
+attribute vec2 aTexCoord;
+
+varying vec3 var_vertPos;
+varying vec4 var_vertCol;
+varying vec3 var_vertNormal;
+varying vec2 var_vertTexCoord;
+
+uniform mat4 uModelViewMatrix;
+uniform mat4 uProjectionMatrix;
+uniform mat3 uNormalMatrix;
+
+void main() {
+  gl_Position = uProjectionMatrix * uModelViewMatrix * vec4(aPosition, 1.0 );
+  var_vertPos = aPosition;
+  var_vertCol = aVertexColor;
+  var_vertNormal = aNormal;
+  var_vertTexCoord = aTexCoord;
+}</textarea>
+            <p>
+                Just ignore everything you saw. Luckily the fragment shader is a easier on the eyes. Open your eyes and paste the following in frag.glsl:
+                <textarea class='glsl-code'>
 #ifdef GL_ES
   precision mediump float;
 #endif
-void main() {
-  gl_FragColor = vec4(0.33, 0.66, 0.99, 1.0);
-}</textarea>
-        <p>
-            Let's break down what we're seeing. If you notice that the syntax looks strangely similar to C, you're right! GLSL is based on the C language because it was/is popular. Lots of developers were familiar with it, so the comittee decided to use it. There's some other 'non-C' looking stuff. The vec4 is part of the language that defines a 4-dimentional vector. And the constructor syntax is quite handy.
-        </p>
-        <p>
-            <em>gl_FragColor</em> is a built-in. You need to assign a value to this variable for the shader to make sense. After all, that's what a shader does. Computer some stuff and assign a color to a fragment/pixel.
-        </p>
-        <h3>Normalized Colours</h3>
-        <p>The colours used in a shader range from 0 to 1. Maybe you're used to 0-255? Have you ever used colorModeRGB(1) in Processing? Similar idea.</p>
-        <hr/>
-        <h2>Hello, Where is (0,0) !?</h2>
-        <p>
-            When I first start messing around with a graphics context, I need to know where 0,0 is. Sometimes its top left, sometimes bottom left...I could tell you where it is for shaders--but let's write some code to prove it ourselves!
-        </p>
 
-        <p>
-        	What we'll do is tell the shader: Hey, can you draw a red box when the x pixel and y pixel are less then 10? From that we can infer where 0,0 is.
-        </p>
-        <textarea class='glsl-code'>
+void main(){
+    gl_FragColor = vec4(0.33, 0.66, 0.99, 1.0);
+}</textarea>
+            </p>
+            <h2>Blue Screen</h2>
+            <p>
+                After you refresh the page, you should see a beautiful blue canvas. We just did quite a bit, so let's step back and go through what we just did. In <b>preload</b> we gave loadShader the paths of the 2 shaders we need. Be careful when supplying the paths--don't get them swapped because you'll get a cryptic error.
+                <b>shader</b> tells Processing which shader we wanna use. Duh! But it's that interesting!? It means we could potentially have several shaders for different 'surfaces'..We'll get into this later down the road. Once we tell processing which shader to use, it will use that for all the primitives going forward until told otherwise. This should be no surprise. This is how Processing rolls.
+            </p>
+            <hr/>
+            <h2>Hello World</h2>
+            <p>Go ahead and paste this into the frag.glsl file.</p>
+            <p>
+                Let's break down what we're seeing. If you notice that the syntax looks strangely similar to C, you're right! GLSL is based on the C language because it was/is popular. Lots of developers were familiar with it, so the comittee decided to use it. There's some other 'non-C' looking stuff. The vec4 is part of the language that defines a 4-dimentional vector. And the constructor syntax is quite handy.
+            </p>
+            <p>
+                <em>gl_FragColor</em> is a built-in. You need to assign a value to this variable for the shader to make sense. After all, that's what a shader does. Computer some stuff and assign a color to a fragment/pixel.
+            </p>
+            <h3>Normalized Colours</h3>
+            <p>The colours used in a shader range from 0 to 1. Maybe you're used to 0-255? Have you ever used colorModeRGB(1) in Processing? Similar idea.</p>
+            <hr/>
+            <h2>Hello, Where is (0,0) !?</h2>
+            <p>
+                When I first start messing around with a graphics context, I need to know where 0,0 is. Sometimes its top left, sometimes bottom left...I could tell you where it is for shaders--but let's write some code to prove it ourselves!
+            </p>
+            <p>
+                What we'll do is tell the shader: Hey, can you draw a red box when the x pixel and y pixel are less then 10? From that we can infer where 0,0 is.
+            </p>
+            <textarea class='glsl-code'>
 // 0.1  Hello, Where is [0,0] !?
 
 void main() {
@@ -71,11 +145,36 @@ void main() {
     gl_FragColor += vec4(1.0);
   }
 }</textarea>
-
-<p>
-	So it turns out that the 0,0 is at the bottom left. Maybe one day you'll take a break from shaders and come back a few months later. instead of doing a search, you can now just write this little snippet to prove it for yourself and jog your memory.
-	</p>
-
+            <p>
+                So it turns out that the 0,0 is at the bottom left. Maybe one day you'll take a break from shaders and come back a few months later. instead of doing a search, you can now just write this little snippet to prove it for yourself and jog your memory.
+            </p>
+        </p>
+        <hr/>
+        <h2>Play time!</h2>
+        <p>
+            <ul class="exercises">
+                <li>What happens if you comment out the translate?</b>
+                </li>
+                <textarea class='glsl-code'>
+function setup() {
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  // translate(-width / 2, -height / 2);
+  shader(sh);
+  rect(0, 0, windowWidth, windowHeight, 1, 1);
+}</textarea>
+                <li>Swap the arguments in loadShader. What's the error message say?</li>
+                <li>What happens if you use ints instead of floats?
+                    <textarea class='glsl-code'>
+void main() {
+  gl_FragColor = vec4(0, 0, 0, 1);
+}</textarea>
+                </li>
+                <li>What are the two last arguments in rect?
+                    <textarea class='glsl-code'>
+rect(0, 0, windowWidth, windowHeight, 1, 1);</textarea>
+                </li>
+            </ul>
+        </p>
     </div>
     <hr/>
     <footer>
