@@ -3,26 +3,20 @@
 */
 
 function goNext() {
+    goTo(1);
+}
+
+function goPrev() {
+    goTo(-1);
+}
+
+function goTo(offset) {
     // ["http:", "", "localhost:5000", "04", ""]
     let tokens = window.location.href.split('/');
     let tokenIdx = tokens.length - 2;
 
     // +1 since we're going next! :)
-    let num = parseInt(tokens[tokenIdx]) + 1;
-
-    // only append '0' is needed
-    let dstChapter = (num < 10) ? '0' + num : num;
-
-    window.location.href = '/' + dstChapter;
-}
-
-function goPrev() {
-    // ["http:", "", "localhost:5000", "04", ""]
-    let tokens = window.location.href.split('/');
-    let tokenIdx = tokens.length - 2;
-
-    // -1 since we're going back! :)
-    let num = parseInt(tokens[tokenIdx]) - 1;
+    let num = parseInt(tokens[tokenIdx]) + offset;
 
     // only append '0' is needed
     let dstChapter = (num < 10) ? '0' + num : num;
