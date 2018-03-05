@@ -4,6 +4,7 @@ TODO:
   - prev & next js functionality
   - get working on gh-pages
   - add html templating
+  - add data folder for all frag shaders
 
 
 

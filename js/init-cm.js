@@ -1,3 +1,6 @@
+/*
+	Andor Saga
+*/
 var elems = document.getElementsByClassName('glsl-code');
 
 for (let i = 0; i < elems.length; i++) {
@@ -6,3 +9,21 @@ for (let i = 0; i < elems.length; i++) {
         readOnly: true
     });
 }
+
+
+
+
+
+/*
+	Gather all the textareas
+
+	load the shaders in the textareas
+
+	run CodeMirror on them
+*/
+
+fetch('/shaders/test.glsl')
+    .then(res => { return res.text() })
+    .then(code => {
+        console.log(code);
+    });

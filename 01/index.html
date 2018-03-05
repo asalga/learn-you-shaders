@@ -16,7 +16,7 @@
     </header>
     <hr/>
     <div id="content">
-        
+
         <h2>Getting Started</h2>
         <p>
             Most of the work will be done in a fragment shader, but we'll need an environment to give us a WebGL context. We'll use p5.js for the foundation. Let's get that setup first. Once we do...oh, boy it'll be exciting!
@@ -204,13 +204,13 @@ function setup() {
   rect(0, 0, windowWidth, windowHeight, 1, 1);
 }</textarea>
                 <li>Swap the arguments in loadShader. What's the error message say?</li>
-                <li>What happens if you use ints instead of floats?
+                <li>What happens if you use ints instead of floats in vec4?
                     <textarea class='glsl-code'>
 void main() {
   gl_FragColor = vec4(0, 0, 0, 1);
 }</textarea>
                 </li>
-                <li>What are the two last arguments in rect?
+                <li>What's up with the two last arguments in the rect call?
                     <textarea class='glsl-code'>
 rect(0, 0, windowWidth, windowHeight, 1, 1);</textarea>
                 </li>
@@ -227,8 +227,11 @@ rect(0, 0, windowWidth, windowHeight, 1, 1);</textarea>
             <li><a href="">Next &gt;</a></li>
         </ul>
     </footer>
-    
+
     <script src="/js/init-cm.js"></script>
+    <script>
+    console.log('test');
+    </script>
 </body>
 
 </html>
