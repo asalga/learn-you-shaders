@@ -49,14 +49,7 @@
             <ol>
                 <li>Download the complete p5.js zip file and extract the folder. Open sketch.js and replace its contents with the following:</li>
             </ol>
-            <textarea class='glsl-code'>
-function setup() {
-    createCanvas(400, 400, WEBGL);
-}
-
-function draw() {
-    background(0);
-}</textarea>
+            <textarea class='glsl-code' data-example='shaders/sketch-1.js'></textarea>
             <p>
                 You should see a black canvas. This shows us your system is happy with WebGL.
             </p>
@@ -81,24 +74,20 @@ p5
 ├── p5.js
 └── p5.min.js
 </pre>
-        </p>
-        <p>
-            Update the sketch code to load the non-yet-existing-shaders:
-            <textarea class='glsl-code' data-example='shaders/sketch.js'></textarea>
-            <p>
-                Close your eyes and paste this into vert.glsl:
-                <textarea class='glsl-code' data-example='shaders/vert.glsl'></textarea>
-            </p>
-            <p>
-                Just ignore everything just you saw. Luckily the fragment shader is a easier on the eyes. Open your eyes and paste the following in frag.glsl:
-                <textarea class='glsl-code'>
-#ifdef GL_ES
-  precision mediump float;
-#endif
 
-void main(){
-    gl_FragColor = vec4(0.33, 0.66, 0.99, 1.0);
-}</textarea>
+            <p>
+                Update the sketch code to load the non-yet-existing-shaders:
+                <textarea class='glsl-code' data-example='shaders/sketch.js'></textarea>
+            </p>
+
+            <p>
+                Paste this into vert.glsl:
+                <textarea class='glsl-code' data-example='shaders/vert-1.glsl'></textarea>
+            </p>
+
+            <p>
+                Now the fragment shader:
+                <textarea class='glsl-code' data-example='shaders/1-1.glsl'></textarea>
             </p>
 
 
@@ -181,7 +170,7 @@ rect(0, 0, windowWidth, windowHeight, 1, 1);</textarea>
         </p>
     </div>
 
-   <!-- ********* -->
+    <!-- ********* -->
     <hr/>
     <footer>
         <ul class="nav">

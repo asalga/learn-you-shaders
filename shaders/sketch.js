@@ -7,5 +7,5 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   shader(sh);
-  rect(0, 0, windowWidth, windowHeight, 1, 1);
+  quad(-1, -1, 1, -1, 1, 1, -1, 1);
 }
