@@ -10,7 +10,8 @@ code {
     display: block;
     font-family: monospace;
 }
-pre{
+
+pre {
     font-size: 16px;
 }
 
@@ -48,17 +49,19 @@ hr {
     color: #8D8D8D;
     font-size: 45px;
     margin-bottom: 80px;
-    /*text-decoration: underline;*/
 }
 
 a {
-    font-style: italic;
     color: #336699;
+    cursor: pointer;
+    font-style: italic;
     text-decoration: none;
+    transition: .25s ease-in;
 }
 
 a:hover {
-    text-decoration: underline;
+    color: #000;
+    transition: .25s ease-in;
 }
 
 .advanced {

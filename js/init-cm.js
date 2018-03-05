@@ -3,7 +3,17 @@
 */
 
 function goNext() {
-    console.log('next');
+    // ["http:", "", "localhost:5000", "04", ""]
+    let tokens = window.location.href.split('/');
+    let tokenIdx = tokens.length - 2;
+
+    // +1 since we're going next! :)
+    let num = parseInt(tokens[tokenIdx]) + 1;
+
+    // only append '0' is needed
+    let dstChapter = (num < 10) ? '0' + num : num;
+
+    window.location.href = '/' + dstChapter;
 }
 
 function goPrev() {
