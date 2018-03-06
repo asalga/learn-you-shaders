@@ -60,7 +60,12 @@ function makeSketch(fs) {
 */
 (function populateTextAreas() {
 
-    let arr = Array.from($('.glsl-code,.js-code,.glsl-code-snippet'));
+    /*
+        glsl-code - will have an assigned sketch canvas
+        js-code - for js code, so no canvas
+        glsl-snippet - not a complete shader, no canvas
+    */
+    let arr = Array.from($('.glsl-code,.js-code,.glsl-code-snippet,.glsl-snippet'));
 
     arr.forEach(t => {
         let path = $(t).attr('data-example');

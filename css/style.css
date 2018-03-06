@@ -20,6 +20,17 @@ ul.exercises li {
     margin-top: 20px;
 }
 
+em {
+    font-weight: bold;
+    font-style: normal;
+}
+
+span.keyword {
+    color: purple;
+    font-family: monospace;
+    font-weight: bold;
+}
+
 h1,
 h2,
 h3 {

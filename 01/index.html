@@ -82,17 +82,17 @@ p5
 
             <p>
                 Update the sketch code to load the non-yet-existing-shaders:
-                <textarea class='js-code' data-example='shaders/sketch.js'></textarea>
+                <div><textarea class='js-code' data-example='shaders/sketch.js'></textarea></div>
             </p>
 
             <p>
                 Paste this into vert.glsl:
-                <textarea class='v-code' data-example='shaders/vert-1.glsl'></textarea>
+                <div><textarea class='glsl-snippet' data-example='shaders/vert.glsl'></textarea></div>
             </p>
 
             <p>
                 Now the fragment shader:
-                <!-- <textarea class='glsl-code' data-example='shaders/1-1.glsl'></textarea> -->
+                <div><textarea class='glsl-code' data-example='shaders/1-1.glsl'></textarea></div>
             </p>
 
 
@@ -115,7 +115,7 @@ p5
             <h2>Hello World</h2>
             <p>Go ahead and paste this into the frag.glsl file.</p>
             <p>
-                Let's break down what we're seeing. If you notice that the syntax looks strangely similar to C, you're right! GLSL is based on the C language because it was/is popular. Lots of developers were familiar with it, so the comittee decided to use it. There's some other 'non-C' looking stuff. The vec4 is part of the language that defines a 4-dimentional vector. And the constructor syntax is quite handy.
+                Let's break down what we're seeing. If you notice that the syntax looks strangely similar to C, you're right! GLSL is based on the C language because it was/is popular. Lots of developers were familiar with it, so the comittee decided to use it. There's some other 'non-C' looking stuff. The <span class="keyword">vec4</span> is part of the language that defines a 4-dimentional vector. And the constructor syntax is quite handy.
             </p>
             <p>
                 <em>gl_FragColor</em> is a built-in. You need to assign a value to this variable for the shader to make sense. After all, that's what a shader does. Computer some stuff and assign a color to a fragment/pixel.
