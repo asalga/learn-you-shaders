@@ -9,6 +9,7 @@
 
     <script src="../lib/codemirror.js"></script>
     <script src="../mode/markdown/js.js"></script>
+    <script src="../lib/jquery-3.2.1.min.js"></script>
 </head>
 
 <body>
@@ -48,40 +49,43 @@
             <li>Shaders are minblowingly fast</li>
         </ul>
 
-        <textarea class='glsl-code' data-example="shaders/test.glsl"></textarea>
+<textarea class='glsl-code' data-example="shaders/blue.glsl"></textarea><div class='sketchContainer' id="1"></div>
 
-        <div id='container'></div>
-        <script>
-        let sh;
+        <textarea class='glsl-code' data-example="shaders/test.glsl"></textarea><div class='sketchContainer' id="0"></div>
 
-        var vs = `  precision highp float;
-                    varying vec2 vPos;
-                    attribute vec3 aPosition;
-                    void main() {
-                        vPos = (gl_Position = vec4(aPosition,1.0)).xy;
-                    }`;
+<br />
 
-        var fs = `  #ifdef GL_ES
-                    precision mediump float;
-                    #endif
-                    void main() {
-                        gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-                    }`;
+        
+        <!--
+        // let sh;
+        // var vs = `  precision highp float;
+        //             varying vec2 vPos;
+        //             attribute vec3 aPosition;
+        //             void main() {
+        //                 vPos = (gl_Position = vec4(aPosition,1.0)).xy;
+        //             }`;
 
-        var sk = function(p) {
-            p.preload = function() {
-                sh = p.createShader(vs, fs);
-            }
+        // var fs = `  #ifdef GL_ES
+        //             precision mediump float;
+        //             #endif
+        //             void main() {
+        //                 gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+        //             }`;
 
-            p.setup = function() {
-                p.createCanvas(123, 123, p.WEBGL);
-                p.shader(sh);
-                p.quad(-1, -1, 1, -1, 1, 1, -1, 1);
-                p.noLoop();
-            }
-        };
-        new p5(sk, 'container');
-        </script>
+        // var sketch = function(p) {
+        //     p.preload = function() {
+        //         sh = p.createShader(vs, fs);
+        //     }
+
+        //     p.setup = function() {
+        //         p.createCanvas(123, 123, p.WEBGL);
+        //         p.shader(sh);
+        //         p.quad(-1, -1, 1, -1, 1, 1, -1, 1);
+        //         p.noLoop();
+        //     }
+        // };
+        // new p5(sketch, 'container');
+        -->
     </div>
 
 

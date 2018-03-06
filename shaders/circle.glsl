@@ -1,3 +1,7 @@
+#ifdef GL_ES
+  precision mediump float;
+#endif
+
 uniform vec2 res;
 
 float circle(vec2 p, float r){
@@ -7,5 +11,5 @@ float circle(vec2 p, float r){
 }
 
 void main() {
-  gl_FragColor = vec4( vec3(   circlePx(vec2(0.), 100.)), 1. );
+  gl_FragColor = vec4( vec3(   circle(vec2(0.), 100.)), 1. );
 }
