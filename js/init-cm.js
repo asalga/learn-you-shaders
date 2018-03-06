@@ -2,6 +2,9 @@
     Andor Saga
 */
 
+const SketchWidth = 200;
+const SketchHeight = 200;
+
 function goHome() {}
 
 function goNext() {
@@ -29,17 +32,17 @@ function makeSketch(fs) {
     let sh;
     var sketch = function(p) {
         p.preload = function() {
-            let vs = `  precision highp float;
-                    varying vec2 vPos;
-                    attribute vec3 aPosition;
-                    void main() {
+            let vs = `precision highp float;
+                      varying vec2 vPos;
+                      attribute vec3 aPosition;
+                      void main() {
                         vPos = (gl_Position = vec4(aPosition,1.0)).xy;
-                    }`;
+                      }`;
             sh = p.createShader(vs, fs);
         }
 
         p.setup = function() {
-            p.createCanvas(100, 100, p.WEBGL);
+            p.createCanvas(SketchWidth, SketchHeight, p.WEBGL);
             p.shader(sh);
             p.quad(-1, -1, 1, -1, 1, 1, -1, 1);
             p.noLoop();
@@ -75,7 +78,7 @@ function makeSketch(fs) {
                 // Get the div immediately following the textarea,
                 // this is where we'll load the sketch
                 // But p5 expects it to have to have an ID, so assign it one.
-                if($(t).hasClass('glsl-code')){
+                if ($(t).hasClass('glsl-code')) {
                     $('<div>').insertAfter(t).attr('id', relPath);
                     new p5(makeSketch(fs), relPath);
                 }
