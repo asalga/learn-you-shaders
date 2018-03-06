@@ -34,11 +34,13 @@ function goHome() {}
     let arr = Array.from(document.getElementsByClassName('glsl-code'));
 
     arr.forEach(t => {
-        let path = '../' + t.getAttribute('data-example');
+        let path = t.getAttribute('data-example');
 
         if (!path) {
             return;
         }
+        
+        path = '../' + path;
 
         fetch(path)
             .then(res => res.text())

@@ -26,7 +26,7 @@
             P5.js allows us to load shaders in two different ways. As strings that contain the <b>actual code</b> or as strings that point to paths, like such:
             <br>
             <br>
-            <textarea class='glsl-code'>loadShader('data/vert.glsl', 'data/frag.glsl');</textarea>
+            <textarea class='glsl-code' data-example='shaders/loadShader-call.js'></textarea>
             <br> Using the latter is way better since we'll get the benefit of syntax highlighting. We can just open the glsl file and edit/save/reload....Its just that there's one small hurdle we need to get over. For JavaScript to start loading files from your filesystem poses a security risk, we'll need to setup a server. Once we get over that hurdle, it's smooth shader sailing.
         </p>
 
@@ -125,16 +125,7 @@ p5
             <p>
                 What we'll do is tell the shader: Hey, can you draw a red box when the x pixel and y pixel are less then 10? From that we can infer where 0,0 is.
             </p>
-            <textarea class='glsl-code'>
-// 0.1  Hello, Where is [0,0] !?
-
-void main() {
-  gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-
-  if(gl_FragCoord.x < 10.0 && gl_FragCoord.y < 10.0){
-    gl_FragColor += vec4(1.0);
-  }
-}</textarea>
+            <textarea class='glsl-code' data-example='shaders/01-01.glsl'></textarea>
             <p>
                 So it turns out that the 0,0 is at the bottom left. Maybe one day you'll take a break from shaders and come back a few months later. instead of doing a search, you can now just write this little snippet to prove it for yourself and jog your memory.
             </p>
@@ -146,26 +137,17 @@ void main() {
         <h2>Play time!</h2>
         <p>
             <ul class="exercises">
-                <li>What happens if you comment out the translate?</b>
-                </li>
-                <textarea class='glsl-code'>
-function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
-  // translate(-width / 2, -height / 2);
-  shader(sh);
-  rect(0, 0, windowWidth, windowHeight, 1, 1);
-}</textarea>
+                
+                <li>Replace the <em>quad</em> call to <em>rect</em>. What happens?</li>
+                <textarea class='glsl-code' data-example='shaders/01/exercise-01.js'></textarea>
+                
                 <li>Swap the arguments in loadShader. What's the error message say?</li>
-                <li>What happens if you use ints instead of floats in vec4?
-                    <textarea class='glsl-code'>
-void main() {
-  gl_FragColor = vec4(0, 0, 0, 1);
-}</textarea>
-                </li>
-                <li>What's up with the two last arguments in the rect call?
-                    <textarea class='glsl-code'>
-rect(0, 0, windowWidth, windowHeight, 1, 1);</textarea>
-                </li>
+                
+                <li>What happens if you use ints instead of floats in vec4?</li>
+                <textarea class='glsl-code' data-example='shaders/01/exercise-02.js'></textarea>
+
+                <li>What happens if you change the arguments of quad?</li>
+
             </ul>
         </p>
     </div>
