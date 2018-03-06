@@ -3,11 +3,11 @@
 
 <head>
     <title>Learn you shaders</title>
-    
+
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../lib/codemirror.css">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    
+
     <script src="../lib/p5.min.js"></script>
     <script src="../lib/codemirror.js"></script>
     <script src="../mode/markdown/js.js"></script>
@@ -130,7 +130,9 @@ p5
             <p>
                 What we'll do is tell the shader: Hey, can you draw a red box when the x pixel and y pixel are less then 10? From that we can infer where 0,0 is.
             </p>
-            <textarea class='glsl-code' data-example='shaders/01-01.glsl'></textarea>
+            <div>
+                <textarea class='glsl-code' data-example='shaders/01-01.glsl'></textarea>
+            </div>
             <p>
                 So it turns out that the 0,0 is at the bottom left. Maybe one day you'll take a break from shaders and come back a few months later. instead of doing a search, you can now just write this little snippet to prove it for yourself and jog your memory.
             </p>
@@ -142,12 +144,12 @@ p5
         <h2>Play time!</h2>
         <p>
             <ul class="exercises">
-                
+
                 <li>Replace the <em>quad</em> call to <em>rect</em>. What happens?</li>
                 <textarea class='glsl-code-snippet' data-example='shaders/01/exercise-01.js'></textarea>
-                
+
                 <li>Swap the arguments in loadShader. What's the error message say?</li>
-                
+
                 <li>What happens if you use ints instead of floats in vec4?</li>
                 <textarea class='glsl-code-snippet' data-example='shaders/01/exercise-02.js'></textarea>
 
