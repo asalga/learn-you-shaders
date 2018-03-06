@@ -2,6 +2,8 @@
     Andor Saga
 */
 
+function goHome() {}
+
 function goNext() {
     goTo(1);
 }
@@ -22,15 +24,10 @@ function goTo(offset) {
     window.location.href = '/' + dstChapter;
 }
 
-function goHome() {}
-
-let sh;
-
 
 function makeSketch(fs) {
-
+    let sh;
     var sketch = function(p) {
-        // debugger;
         p.preload = function() {
             let vs = `  precision highp float;
                     varying vec2 vPos;
@@ -42,16 +39,14 @@ function makeSketch(fs) {
         }
 
         p.setup = function() {
-            p.createCanvas(123, 123, p.WEBGL);
+            p.createCanvas(100, 100, p.WEBGL);
             p.shader(sh);
             p.quad(-1, -1, 1, -1, 1, 1, -1, 1);
             p.noLoop();
         }
     };
     return sketch;
-
 }
-
 
 
 /*
@@ -62,11 +57,10 @@ function makeSketch(fs) {
 */
 (function populateTextAreas() {
 
-    // Gather all the <textareas>
-    let arr = Array.from(document.getElementsByClassName('glsl-code'));
+    let arr = Array.from($('.glsl-code,.js-code,.glsl-code-snippet'));
 
     arr.forEach(t => {
-        let path = t.getAttribute('data-example');
+        let path = $(t).attr('data-example');
 
         if (!path) { return; }
 
@@ -77,11 +71,14 @@ function makeSketch(fs) {
             .then(fragShaderCode => {
                 fs = t.innerHTML = fragShaderCode;
 
+                // If it's a glsl example, add the rendered result:
                 // Get the div immediately following the textarea,
                 // this is where we'll load the sketch
                 // But p5 expects it to have to have an ID, so assign it one.
-                $('<div>').insertAfter(t).attr('id', relPath);
-                new p5(makeSketch(fs), relPath);
+                if($(t).hasClass('glsl-code')){
+                    $('<div>').insertAfter(t).attr('id', relPath);
+                    new p5(makeSketch(fs), relPath);
+                }
 
                 CodeMirror.fromTextArea(t, {
                     lineNumbers: true,
