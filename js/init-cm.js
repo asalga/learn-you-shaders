@@ -80,9 +80,8 @@ function makeSketch(fs) {
                 // Get the div immediately following the textarea,
                 // this is where we'll load the sketch
                 // But p5 expects it to have to have an ID, so assign it one.
-                $(t).next().attr('id', relPath);
-                let sk = makeSketch(fs);
-                new p5(sk, relPath);
+                $('<div>').insertAfter(t).attr('id', relPath);
+                new p5(makeSketch(fs), relPath);
 
                 CodeMirror.fromTextArea(t, {
                     lineNumbers: true,

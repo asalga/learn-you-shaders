@@ -91,4 +91,11 @@ a:hover {
     height: auto !important;
     font-size: 14px;
     border: 1px solid #aaa;
+    display: inline-block;
+}
+
+textarea ~ div{
+    display: inline;
+    /*display: inline-block;*/
+
 }

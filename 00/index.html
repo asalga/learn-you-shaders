@@ -49,45 +49,17 @@
             <li>Shaders are minblowingly fast</li>
         </ul>
 
-<textarea class='glsl-code' data-example="shaders/blue.glsl"></textarea><div class='sketchContainer' id="1"></div>
+        <div>
+            <textarea class='glsl-code' data-example="shaders/red.glsl"></textarea>
+        </div>
+        <div>
+            <textarea class='glsl-code' data-example="shaders/green.glsl"></textarea>
+        </div>
+        <div>
+            <textarea class='glsl-code' data-example="shaders/blue.glsl"></textarea>
+        </div>
 
-        <textarea class='glsl-code' data-example="shaders/test.glsl"></textarea><div class='sketchContainer' id="0"></div>
-
-<br />
-
-        
-        <!--
-        // let sh;
-        // var vs = `  precision highp float;
-        //             varying vec2 vPos;
-        //             attribute vec3 aPosition;
-        //             void main() {
-        //                 vPos = (gl_Position = vec4(aPosition,1.0)).xy;
-        //             }`;
-
-        // var fs = `  #ifdef GL_ES
-        //             precision mediump float;
-        //             #endif
-        //             void main() {
-        //                 gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
-        //             }`;
-
-        // var sketch = function(p) {
-        //     p.preload = function() {
-        //         sh = p.createShader(vs, fs);
-        //     }
-
-        //     p.setup = function() {
-        //         p.createCanvas(123, 123, p.WEBGL);
-        //         p.shader(sh);
-        //         p.quad(-1, -1, 1, -1, 1, 1, -1, 1);
-        //         p.noLoop();
-        //     }
-        // };
-        // new p5(sketch, 'container');
-        -->
     </div>
-
 
     <hr/>
     <footer>
