@@ -30,7 +30,7 @@ function goTo(offset) {
 }
 
 
-function makeSketch(fs) {
+function makeSketch(fs, texPath) {
     let sh;
     let img0;
 
@@ -44,10 +44,10 @@ function makeSketch(fs) {
                       }`;
             sh = p.createShader(vs, fs);
 
-            // uniform sampler2D u_texture0;
-            if(fs.match(/uniform\s+sampler2D\s+u_texture0/)){
-                img0 = p.loadImage('img/hero.png');
-                
+            // match(/uniform\s+sampler2D\s+u_texture0/)
+            if (texPath) {
+                console.log(texPath);
+                img0 = p.loadImage(texPath);
             }
         }
 
@@ -56,17 +56,13 @@ function makeSketch(fs) {
             p.shader(sh);
 
             if (fs.match(/uniform\s+vec2\s+u_res/)) {
-                console.log(SketchWidth, SketchHeight);
                 sh.setUniform('u_res', [SketchWidth, SketchHeight]);
             }
             if (fs.match(/uniform\s+vec2\s+u_time/)) {
                 sh.setUniform('u_time', p.millis());
             }
-
-            if(fs.match(/uniform\s+sampler2D\s+u_texture0/)){
-                console.log('texture', img0);
+            if (fs.match(/uniform\s+sampler2D\s+u_texture0/)) {
                 sh.setUniform('u_texture0', img0);
-
             }
 
             p.quad(-1, -1, 1, -1, 1, 1, -1, 1);
@@ -98,12 +94,14 @@ function makeSketch(fs) {
         if (!path) { return; }
 
         // let relPath = '../' + path;
-        let relPath =  path;
+        let relPath = path;
 
         fetch(relPath)
             .then(res => res.text())
             .then(fragShaderCode => {
                 fs = t.innerHTML = fragShaderCode;
+
+                let texPath = $(t).attr('data-tex0');
 
                 // If it's a glsl example, add the rendered result:
                 // Get the div immediately following the textarea,
@@ -111,14 +109,13 @@ function makeSketch(fs) {
                 // But p5 expects it to have to have an ID, so assign it one.
                 if ($(t).hasClass('glsl-code')) {
                     $('<div>').insertAfter(t).attr('id', relPath);
-                    new p5(makeSketch(fs), relPath);
+                    new p5(makeSketch(fs, texPath), relPath);
                 }
 
                 CodeMirror.fromTextArea(t, {
                     lineNumbers: true,
                     readOnly: true
                 });
-
             });
     });
 })();
