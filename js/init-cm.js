@@ -74,9 +74,12 @@ function makeSketch(fs, params) {
             if (fs.match(/uniform\s+float\s+u_time/)) {
                 sh.setUniform('u_time', p.millis() / 1000);
             }
+
+            // TODO: Add for loop here
             if (fs.match(/uniform\s+sampler2D\s+u_texture0/)) {
                 sh.setUniform('u_texture0', img0);
             }
+
             if (fs.match(/uniform\s+vec3\s+u_mouse/)) {
                 let x = Number(p.mouseX).clamp(0, w);
                 let y = Number(p.mouseY).clamp(0, h);
