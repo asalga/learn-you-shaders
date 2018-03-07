@@ -2,10 +2,12 @@
     Andor Saga
 */
 
-const SketchWidth = 200;
-const SketchHeight = 200;
+const SketchWidth = 320;
+const SketchHeight = 240;
 
-function goHome() {}
+function goHome() {
+    window.location.href = '/';
+}
 
 function goNext() {
     goTo(1);
@@ -44,6 +46,15 @@ function makeSketch(fs) {
         p.setup = function() {
             p.createCanvas(SketchWidth, SketchHeight, p.WEBGL);
             p.shader(sh);
+
+            if (fs.match(/uniform\s+vec2\s+u_res/)) {
+                console.log(SketchWidth, SketchHeight);
+                sh.setUniform('u_res', [SketchWidth, SketchHeight]);
+            }
+            if (fs.match(/uniform\s+vec2\s+u_time/)) {
+                sh.setUniform('u_time', p.millis());
+            }
+
             p.quad(-1, -1, 1, -1, 1, 1, -1, 1);
             p.noLoop();
         }
