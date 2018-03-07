@@ -57,11 +57,12 @@ function makeSketch(fs, params) {
             w = params.width || DefaultSketchWidth;
             h = params.height || DefaultSketchHeight;
             p.createCanvas(w, h, p.WEBGL);
-            // if (params.loop) {
-            //     p.loop();
-            // } else {
-            // }
-            p.noLoop();
+            if (params.loop) {
+                p.loop();
+            } else {
+                p.noLoop();
+            }
+               p.noLoop();
         }
 
         p.draw = function() {
