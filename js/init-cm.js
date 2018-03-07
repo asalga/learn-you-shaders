@@ -32,6 +32,8 @@ function goTo(offset) {
 
 function makeSketch(fs) {
     let sh;
+    let img0;
+
     var sketch = function(p) {
         p.preload = function() {
             let vs = `precision highp float;
@@ -41,6 +43,12 @@ function makeSketch(fs) {
                         vPos = (gl_Position = vec4(aPosition,1.0)).xy;
                       }`;
             sh = p.createShader(vs, fs);
+
+            // uniform sampler2D u_texture0;
+            if(fs.match(/uniform\s+sampler2D\s+u_texture0/)){
+                img0 = p.loadImage('img/hero.png');
+                
+            }
         }
 
         p.setup = function() {
@@ -53,6 +61,12 @@ function makeSketch(fs) {
             }
             if (fs.match(/uniform\s+vec2\s+u_time/)) {
                 sh.setUniform('u_time', p.millis());
+            }
+
+            if(fs.match(/uniform\s+sampler2D\s+u_texture0/)){
+                console.log('texture', img0);
+                sh.setUniform('u_texture0', img0);
+
             }
 
             p.quad(-1, -1, 1, -1, 1, 1, -1, 1);
