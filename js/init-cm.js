@@ -2,8 +2,8 @@
     Andor Saga
 */
 
-const SketchWidth = 320;
-const SketchHeight = 240;
+const DefaultSketchWidth = 320;
+const DefaultSketchHeight = 240;
 
 function goHome() {
     window.location.href = '/';
@@ -30,7 +30,7 @@ function goTo(offset) {
 }
 
 
-function makeSketch(fs, texPath) {
+function makeSketch(fs, params) {
     let sh;
     let img0;
 
@@ -44,19 +44,20 @@ function makeSketch(fs, texPath) {
                       }`;
             sh = p.createShader(vs, fs);
 
-            // match(/uniform\s+sampler2D\s+u_texture0/)
-            if (texPath) {
-                console.log(texPath);
-                img0 = p.loadImage(texPath);
+            if (params && params.tex0) {
+                img0 = p.loadImage(params.tex0);
             }
         }
 
         p.setup = function() {
-            p.createCanvas(SketchWidth, SketchHeight, p.WEBGL);
+            let w = params.width || DefaultSketchWidth;
+            let h = params.height || DefaultSketchHeight;
+
+            p.createCanvas(w, h, p.WEBGL);
             p.shader(sh);
 
             if (fs.match(/uniform\s+vec2\s+u_res/)) {
-                sh.setUniform('u_res', [SketchWidth, SketchHeight]);
+                sh.setUniform('u_res', [w, h]);
             }
             if (fs.match(/uniform\s+vec2\s+u_time/)) {
                 sh.setUniform('u_time', p.millis());
@@ -90,6 +91,13 @@ function makeSketch(fs, texPath) {
 
     arr.forEach(t => {
         let path = $(t).attr('data-example');
+        let params = {};
+        let strParams = $(t).attr('data-params');
+
+
+        if (strParams) {
+            params = JSON.parse(strParams);
+        }
 
         if (!path) { return; }
 
@@ -101,7 +109,7 @@ function makeSketch(fs, texPath) {
             .then(fragShaderCode => {
                 fs = t.innerHTML = fragShaderCode;
 
-                let texPath = $(t).attr('data-tex0');
+                // let texPath = $(t).attr('data-tex0');
 
                 // If it's a glsl example, add the rendered result:
                 // Get the div immediately following the textarea,
@@ -109,7 +117,7 @@ function makeSketch(fs, texPath) {
                 // But p5 expects it to have to have an ID, so assign it one.
                 if ($(t).hasClass('glsl-code')) {
                     $('<div>').insertAfter(t).attr('id', relPath);
-                    new p5(makeSketch(fs, texPath), relPath);
+                    new p5(makeSketch(fs, params), relPath);
                 }
 
                 CodeMirror.fromTextArea(t, {
