@@ -1,3 +1,7 @@
+/*
+    Andor Saga
+*/
+
 body {
     font-family: "Times New Roman", serif;
     font-size: 20px;
@@ -5,6 +9,10 @@ body {
     margin: 0 50px 50px 50px;
     color: #333;
     background-color: #fefefe;
+}
+
+div#content {
+    padding: 0 100px;
 }
 
 code {
@@ -40,6 +48,7 @@ h3 {
     font-family: cursive;
     line-height: 20px;
     margin-left: -20px;
+    display: inline-block;
 }
 
 h1 {
@@ -49,6 +58,11 @@ h1 {
 h2 {
     font-size: 35px;
 }
+
+h3 {
+    font-size: 20px;
+}
+
 
 hr {
     margin-bottom: 50px;
@@ -79,14 +93,24 @@ a:hover {
 }
 
 .advanced {
+    display: block;
     border: 1px solid #888;
     background-color: #efefef;
-    font-size: 18px;
+    font-size: 12px;
+    font-family: sans-serif;
     padding: 20px;
+    /*max-width: 50%;*/
+}
+
+.advanced span {
+    font-family: sans-serif;
+    font-weight: bold;
+    vertical-align: super;
 }
 
 .icon {
     width: 20px;
+    display: inline-block;
 }
 
 .nav {
@@ -105,7 +129,12 @@ a:hover {
     display: inline-block;
     font-size: 14px;
     height: auto !important;
-    width: 50%;
+    /*width: 50%;*/
+     min-height: 200px;
+}
+
+.line-highlight{
+    background-color: #e9ffb7;
 }
 
 textarea~div {
@@ -118,8 +147,8 @@ div canvas {
     position: absolute;
 }
 
-img.hero{
+img.hero {
     width: 500px;
     display: block;
-    margin:0 auto;
+    margin: 0 auto;
 }

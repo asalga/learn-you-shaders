@@ -23,19 +23,22 @@
     <div id="content">
 
         <img src='img/hero.png' class='hero'>
-
         <p>
-            One of the first times I came across this tunnel effect demo was on ShaderToy. I was immediately captivated by terse code. In just a handful of lines of code, a beautiful and convincing visualization emerges. I studied the code--dismantling. I just was just motivated to understand exactly how it worked. The primary reason this blog post exists is to help me understand exactly what is happening under the hood. We're going to build up the shader bit by bit. I'll also be omitting the varying variables since they aren't pertinent.
+            One of the first times I came across this tunnel effect demo was on ShaderToy. I was immediately captivated by terse code. In about 5 lines of code, a beautiful and convincing visualization emerges--it seemed magical.
         </p>
-
-
+        <p>
+            I was motivated to understand exactly how it worked. I studied the code--dismantling and putting it back together. It took me quite a while, but I'd like to share what I have learned. Hopefully this tutorial will be of use to you.
+        </p>
+        <p>
+            We're going to build up the shader piecemeal. Each time a new concept is introduced, the code in the shader will be highlighted.
+        </p>
+ 
         <!-- ************* -->
         <h2>Step X: Empty Canvas</h2>
         <p>
-            We start by filling the pixels with my favourite color.
+            Let's start by filling the canvas with a solid color. Oh boy, so much excitement.
         </p>
         <textarea class='glsl-code' data-params='{"width":400,"height":200}' data-example='code/0.glsl'></textarea>
-
 
 
         <!-- ************* -->
@@ -51,10 +54,48 @@
         <hr/>
         <h2>Step X: Texture</h2>
         <p>
-            Let's map a texture onto the canvas. Great, We have the texture mapped exactly onto the canvas.
+            Let's map a texture onto the canvas.
         </p>
-        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png"}' data-example='code/texture.glsl'></textarea>
+        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,5,6]}' data-example='code/texture.glsl'></textarea>
 
+        <p>
+            We need 2 uniforms: a texture unit and a resolution.
+        </p>
+        <p>
+            The <em>texture2D</em> function expects a texture and a vec2 with normalized components. For the coordinates, we'll take the current pixel location and divide by the resolution.
+            <code>
+                [x] 0..400 => 0..1<br />
+                [y] 0..200 => 0..1
+            </code>
+        </p>
+        <p>
+        <!--
+            We need the resolution because we need to create a vector with normalized components.
+
+            Each fragment will be the result of sampling the texture.
+            the bottom left corner is 0,0. The top-right corner will be 1,1.
+        -->
+        </p>
+        <p>
+            Our canvas is rectangular but the texture we're using is a square, so warping will occur. You'll notice the texture is also upside down! What the shit? Well, that just won't do...
+        </p>
+        <p>
+            Note how we're using GLSL's syntactic sugar to perform component-wise division. If you are feeling verbose, you can write the division thus:
+            <br />
+            <textarea class='glsl-snippet'>vec2 uv = vec2(gl_FragCoord.x / u_res.x, gl_FragCoord.y / u_res.y);</textarea>
+        </p>
+
+        <div class='advanced'>
+            <img src="../public/icons/advanced.png" class="icon" />
+            <span>Texture repeating</span>
+            <br />
+            <p>
+                Wait a second! Doesn't texture2D do texture repeating? Can't we pass in non-normalized values? Yes. OpenGL and WebGL have a function we can call to set the texture repetition parameter (repeat,stretch,etc.). Try multiplying the uv.x component by something greater than 1. What happens?
+            </p>
+            <p>
+                We're going to pretend that texture2D expects normalized values, so we'll just take care of 'wrapping' the values ourselves.
+            </p>
+        </div>
 
 
 
@@ -62,12 +103,13 @@
         <hr/>
         <h2>Step X: Texture Flip</h2>
         <p>
-            WebGL has this weird behaviour where textures are typically flipped. We can actually solve this by getting the rendered from p5 and calling a function that tells WebGL if we want textures fippped.
+            WebGL has this weird behaviour where textures are flipped. We can actually solve this by getting the rendered from p5 and calling a function that tells WebGL if we want textures fippped.
         </p>
         <p>
-            But since we have power of shaders, we can do the flip within the shader itself. We're going to remap the y-coordinates from 0..1 to 1..0.
+            But since we have power of shaders, we can do the flip within the shader itself. Since we know that the maximum value of y is 1, we start with 1 and subtract whatever the y value is. This remaps the y-coordinates from 0..1 to 1..0.
+
         </p>
-        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png"}' data-example='code/flip_y.glsl'></textarea>
+        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[10]}' data-example='code/flip_y.glsl'></textarea>
 
 
 
@@ -183,38 +225,6 @@
         </ul>
     </footer>
 
-    <pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</pre>r
     <script src="/js/init-cm.js"></script>
 
 </body>

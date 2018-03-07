@@ -3,7 +3,7 @@
 */
 
 Number.prototype.clamp = function(min, max) {
-  return Math.min(Math.max(this, min), max);
+    return Math.min(Math.max(this, min), max);
 };
 
 const DefaultSketchWidth = 320;
@@ -57,11 +57,11 @@ function makeSketch(fs, params) {
             w = params.width || DefaultSketchWidth;
             h = params.height || DefaultSketchHeight;
             p.createCanvas(w, h, p.WEBGL);
-            if (params.loop) {
-                p.loop();
-            } else {
-                p.noLoop();
-            }
+            // if (params.loop) {
+            //     p.loop();
+            // } else {
+            // }
+            p.noLoop();
         }
 
         p.draw = function() {
@@ -81,8 +81,8 @@ function makeSketch(fs, params) {
             }
 
             if (fs.match(/uniform\s+vec3\s+u_mouse/)) {
-                let x = Number(p.mouseX).clamp(0, w);
-                let y = Number(p.mouseY).clamp(0, h);
+                let x = p.mouseX.clamp(0, w);
+                let y = p.mouseY.clamp(0, h);
                 sh.setUniform('u_mouse', [x, y, 0]);
             }
 
@@ -110,15 +110,17 @@ function makeSketch(fs, params) {
 
     arr.forEach(t => {
         let path = $(t).attr('data-example');
-        let params = {};
         let strParams = $(t).attr('data-params');
+        let params = strParams ? JSON.parse(strParams) : {};
 
-
-        if (strParams) {
-            params = JSON.parse(strParams);
+        // inline code
+        if (!path) {
+            CodeMirror.fromTextArea(t, {
+                lineNumbers: true,
+                readOnly: true
+            });
+            return;
         }
-
-        if (!path) { return; }
 
         // let relPath = '../' + path;
         let relPath = path;
@@ -127,8 +129,6 @@ function makeSketch(fs, params) {
             .then(res => res.text())
             .then(fragShaderCode => {
                 fs = t.innerHTML = fragShaderCode;
-
-                // let texPath = $(t).attr('data-tex0');
 
                 // If it's a glsl example, add the rendered result:
                 // Get the div immediately following the textarea,
@@ -139,10 +139,17 @@ function makeSketch(fs, params) {
                     new p5(makeSketch(fs, params), relPath);
                 }
 
-                CodeMirror.fromTextArea(t, {
+                let cm = CodeMirror.fromTextArea(t, {
                     lineNumbers: true,
                     readOnly: true
                 });
+
+                if (params.lines) {
+                    // console.log(params.lines);
+                    params.lines.forEach(l => {
+                        cm.addLineClass(l, null, 'line-highlight');
+                    });
+                }
             });
     });
 })();
