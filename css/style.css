@@ -10,6 +10,8 @@ body {
 code {
     display: block;
     font-family: monospace;
+    background-color: #e59ecb;
+    padding: 4px;
 }
 
 pre {
@@ -114,4 +116,10 @@ div canvas {
     border: 1px solid green;
     margin: 0 0 0 20px;
     position: absolute;
+}
+
+img.hero{
+    width: 500px;
+    display: block;
+    margin:0 auto;
 }

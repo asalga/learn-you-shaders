@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Learn you shaders</title>
+
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../lib/codemirror.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <script src="../lib/p5.min.js"></script>
+    <script src="../lib/codemirror.js"></script>
+    <script src="../mode/markdown/js.js"></script>
+    <script src="../lib/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1 class="title">Learn you Shaders</h1>
+        <h1>Tunnel Viz</h1>
+    </header>
+    <hr/>
+    <div id="content">
+        
+        <img src='img/hero.png' class='hero'>
+
+        <p>
+            One of the first times I came across this tunnel effect demo was on ShaderToy. I was immediately captivated by terse code. In just a handful of lines of code, a beautiful and convincing visualization emerges. I studied the code--dismantling. I just was just motivated to understand exactly how it worked. The primary reason this blog post exists is to help me understand exactly what is happening under the hood. We're going to build up the shader bit by bit. I'll also be omitting the varying variables since they aren't pertinent.
+        </p>
+
+
+        <!-- ************* -->
+        <h2>Step 1: Empty Canvas</h2>
+        <p>
+            We start by filling the pixels with my favourite color.
+        </p>
+        <textarea class='glsl-code' data-example='code/0.glsl'></textarea>
+
+
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step 2: The Coordinate System</h2>
+        <img src='img/empty_graph.png' class='hero'>
+        <p>
+        </p>
+
+
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step 3: Texture</h2>
+        <p>
+            Let's map a texture onto the canvas.(note the image gets stretched, we will resolve this in a bit)
+
+        </p>
+
+        <textarea class='glsl-code' data-example='code/texture.glsl'></textarea>
+
+        <!-- <img src='img/stretched_texture.png' class='hero'> -->
+
+
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step 4: Repeating The Texture</h2>
+        <p>
+            Examine the final demo and you can see that the texture is repeated. We can easily achieve this by using the built-in mod function. Not surprisingly, mod accepts 2 values.
+        </p>
+
+
+
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step 5: The Magic</h2>
+        <p>
+            The core 'magic' of the tunnel is the perspective that gets created. How is this done? We need to somehow repeat the texture more frequently the closer it is to the center of the canvas.
+        </p>
+        <p>
+            Let's head over to Google and plug in this formula:
+            <code>y = 1/x</code>
+        </p>
+
+        <img src='img/google_graph.png' class='hero'>
+
+        <p>
+            This graph show that y has a sharp decline and tends towards infinity as x increases in size.  However our x ranges from 0 to 1, not 0 to 26 as the table suggests.
+        </p>
+
+        <img src='img/table.png' class='hero'>
+
+
+
+        <textarea class='glsl-code' data-example='code/0.glsl'></textarea>
+
+        <h2>Step X: Polishing</h2>
+        <p>
+            The center of the demo has this mushyness. Let's fix that. And the solution is pretty simple. We're just going to cover it up :)
+        </p>
+
+        <h2>Step X: Adding Movement</h2>
+        <p>
+            Let's make it seem like the user is moving through the tunnel.
+        </p>
+
+        <h2>Step X: Adding Interactivity</h2>
+        <p>
+            What we have is great, but let's go one step further.
+        </p>
+
+    </div>
+
+    <!-- ********* -->
+    <hr/>
+    <footer>
+        <ul class="nav">
+            <li><a onclick="goPrev();">&lt; Prev</a></li>
+            <li><a onclick="goHome();">Home</a></li>
+            <li><a onclick="goNext();">Next &gt;</a></li>
+        </ul>
+    </footer>
+
+    <script src="/js/init-cm.js"></script>
+
+</body>
+
+</html>

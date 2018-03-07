@@ -83,7 +83,8 @@ function makeSketch(fs) {
 
         if (!path) { return; }
 
-        let relPath = '../' + path;
+        // let relPath = '../' + path;
+        let relPath =  path;
 
         fetch(relPath)
             .then(res => res.text())
