@@ -56,6 +56,8 @@
         <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png"}' data-example='code/texture.glsl'></textarea>
 
 
+
+
         <!-- ************* -->
         <hr/>
         <h2>Step X: Texture Flip</h2>
@@ -83,6 +85,7 @@
 
 
 
+
         <!-- ************* -->
         <hr/>
         <h2>Step X: Perspective</h2>
@@ -90,8 +93,8 @@
             The core 'magic' of the tunnel is the perspective that gets created. How is this done? We need to somehow repeat the texture more frequently the closer it is to the center of the canvas.
         </p>
         <p>
-            <!-- Let's head over to Google and plug in this formula: -->
-            <!-- <code>y = 1/x</code> -->
+            Let's head over to Google and plug in this formula:
+            <code>y = 1/x</code>
         </p>
         <img src='img/google_graph.png' class='hero'>
         <p>
@@ -123,13 +126,16 @@
         <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png"}' data-example='code/fog.glsl'></textarea>
 
 
+
+
         <!-- ************* -->
         <hr>
         <h2>Step X: Texture</h2>
         <p>
-            Finally, we're going to replace the texture.
+            Finally, we're going to replace the debug image to the actual texture.
         </p>
         <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/tex.jpg"}' data-example='code/final.glsl'></textarea>
+
 
 
 
@@ -143,14 +149,27 @@
 
 
 
+
         <!-- ************* -->
-         <h2>Step X: Adding Interactivity</h2>
+        <h2>Step X: Adding Interactivity</h2>
         <p>
             What we have is great, but let's go one step further.
         </p>
-         <textarea class='glsl-code' data-params='{"width":400,"height":200,"loop":"true","tex0":"tex/tex.jpg"}' data-example='code/interactivity.glsl'></textarea>
+        <textarea class='glsl-code' data-params='{"width":400,"height":200,"loop":"true","tex0":"tex/tex.jpg"}' data-example='code/interactivity.glsl'></textarea>
 
+
+
+
+        <!-- ********* -->
+        <hr/>
+        <h2>Play time!</h2>
+        <p>
+            <ul class="exercises">
+                <li>Add a bump map texture</li>
+            </ul>
+        </p>
     </div>
+
 
 
 
@@ -164,7 +183,7 @@
         </ul>
     </footer>
 
-<pre>
+    <pre>
 
 
 
