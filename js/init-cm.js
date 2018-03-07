@@ -2,6 +2,10 @@
     Andor Saga
 */
 
+Number.prototype.clamp = function(min, max) {
+  return Math.min(Math.max(this, min), max);
+};
+
 const DefaultSketchWidth = 320;
 const DefaultSketchHeight = 240;
 
@@ -33,6 +37,7 @@ function goTo(offset) {
 function makeSketch(fs, params) {
     let sh;
     let img0;
+    let w, h;
 
     var sketch = function(p) {
         p.preload = function() {
@@ -44,30 +49,41 @@ function makeSketch(fs, params) {
                       }`;
             sh = p.createShader(vs, fs);
 
-            if (params && params.tex0) {
+            if (params.tex0) {
                 img0 = p.loadImage(params.tex0);
             }
         }
-
         p.setup = function() {
-            let w = params.width || DefaultSketchWidth;
-            let h = params.height || DefaultSketchHeight;
-
+            w = params.width || DefaultSketchWidth;
+            h = params.height || DefaultSketchHeight;
             p.createCanvas(w, h, p.WEBGL);
+            if (params.loop) {
+                p.loop();
+            } else {
+                p.noLoop();
+            }
+        }
+
+        p.draw = function() {
+
             p.shader(sh);
 
             if (fs.match(/uniform\s+vec2\s+u_res/)) {
                 sh.setUniform('u_res', [w, h]);
             }
-            if (fs.match(/uniform\s+vec2\s+u_time/)) {
-                sh.setUniform('u_time', p.millis());
+            if (fs.match(/uniform\s+float\s+u_time/)) {
+                sh.setUniform('u_time', p.millis() / 1000);
             }
             if (fs.match(/uniform\s+sampler2D\s+u_texture0/)) {
                 sh.setUniform('u_texture0', img0);
             }
+            if (fs.match(/uniform\s+vec3\s+u_mouse/)) {
+                let x = Number(p.mouseX).clamp(0, w);
+                let y = Number(p.mouseY).clamp(0, h);
+                sh.setUniform('u_mouse', [x, y, 0]);
+            }
 
             p.quad(-1, -1, 1, -1, 1, 1, -1, 1);
-            p.noLoop();
         }
     };
     return sketch;
