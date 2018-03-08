@@ -4,7 +4,7 @@
 <head>
     <title>Learn you shaders</title>
 
-    
+
     <link rel="stylesheet" href="../lib/codemirror.css">
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -41,7 +41,7 @@
         </p>
         <textarea class='js-code' data-example='code/sketch-1.js'></textarea>
         <br/>
-        <textarea class='glsl-code' data-params='{"width":400,"height":200}' data-example='code/0.glsl'></textarea>
+        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200}' data-example='code/0.glsl'></textarea> -->
 
 
 
@@ -51,7 +51,7 @@
         <p>
             Let's map a texture onto the canvas.
         </p>
-        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,5,6]}' data-example='code/texture.glsl'></textarea>
+        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,5,6]}' data-example='code/texture.glsl'></textarea> -->
 
         <p>
             We need 2 uniforms: a texture unit and a resolution.
@@ -103,7 +103,7 @@
         <p>
             But since we have power of shaders, we can do the flip within the shader itself. Since we know that the maximum value of y is 1, we start with 1 and subtract whatever the y value is. This remaps the y-coordinates from 0..1 to 1..0.
         </p>
-        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[11]}' data-example='code/flip_y.glsl'></textarea>
+        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[11]}' data-example='code/flip_y.glsl'></textarea> -->
 
 
 
@@ -126,17 +126,70 @@
         <hr/>
         <h2>Step X: Perspective</h2>
         <p>
-            Hold onto your butts. This is where shit gets real. We're going to dive head-first into the magic of the demo. 
-            The core 'magic' of the tunnel is the perspective that gets created. How is this done? We need to somehow repeat the texture more frequently the closer it is to the center of the canvas.
+            Hold onto your butts. This is where shit gets real. We're going to dive head-first into the magic of the demo. The core 'magic' of the tunnel is the perspective that gets created. How is this done?
         </p>
         <p>
-            Let's head over to Google and plug in this formula: <a href="http://google.ca/search?q=y+%3D+1%2Fx"><code>y = 1/x</code></a>
+            We need to somehow repeat the texture more frequently the closer it is to the center of the canvas. Since we don't have a circular texture yet, we're going to make the texture repeat 'faster' as it appears closer to the left edge.
         </p>
-        <img src='img/google_graph.png' class='hero'>
+        <p>
+            Alright, so there's the magic: Go to Google and plug in this formula: <a href="http://google.ca/search?q=y+%3D+1%2Fx"><code>y = 1/x</code></a>
+        </p>
+        <p>
+            Below is a graphical representation as well as a table to help better understand the relationship between x and y.
+        </p>
+        <img src='img/google_graph.png'>
+        <table class="darkTable">
+            <thead>
+                <tr>
+                    <th>y</th>
+                    <th>x</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10000</td>
+                    <td>0.0001</td>
+                </tr>
+                <tr>
+                    <td>8.0</td>
+                    <td>0.125</td>
+                </tr>
+                <tr>
+                    <td>4.0</td>
+                    <td>0.25</td>
+                </tr>
+                <tr>
+                    <td>2.6666</td>
+                    <td>0.375</td>
+                </tr>
+                <tr>
+                    <td>2.0</td>
+                    <td>0.5</td>
+                </tr>
+                <tr>
+                    <td>1.6</td>
+                    <td>0.625</td>
+                </tr>
+                <tr>
+                    <td>1.3333</td>
+                    <td>0.75</td>
+                </tr>
+                <tr>
+                    <td>1.142</td>
+                    <td>0.875</td>
+                </tr>
+                <tr>
+                    <td>1.0</td>
+                    <td>1.0</td>
+                </tr>
+            </tbody>
+        </table>
         <p>
             This graph show that y has a sharp decline and tends towards infinity as x increases in size.  However our x ranges from 0 to 1, not 0 to 26 as the table suggests.
         </p>
-        <!-- <img src='img/table.png' class='hero'> -->
+
+
+
         <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[12]}' data-example='code/perspective.glsl'></textarea>
 
 
