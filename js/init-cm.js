@@ -62,7 +62,7 @@ function makeSketch(fs, params) {
             } else {
                 p.noLoop();
             }
-               p.noLoop();
+            p.noLoop();
         }
 
         p.draw = function() {
@@ -136,7 +136,8 @@ function makeSketch(fs, params) {
                 // this is where we'll load the sketch
                 // But p5 expects it to have to have an ID, so assign it one.
                 if ($(t).hasClass('glsl-code')) {
-                    $('<div>').insertAfter(t).attr('id', relPath);
+                    let divContainer = $('<div>').insertAfter(t).attr('id', relPath);
+                    $(t).prependTo(divContainer);
                     new p5(makeSketch(fs, params), relPath);
                 }
 
@@ -146,7 +147,6 @@ function makeSketch(fs, params) {
                 });
 
                 if (params.lines) {
-                    // console.log(params.lines);
                     params.lines.forEach(l => {
                         cm.addLineClass(l, null, 'line-highlight');
                     });

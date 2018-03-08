@@ -3,8 +3,10 @@
 */
 
 body {
-    font-family: "Times New Roman", serif;
-    font-size: 20px;
+    background-image: url('/public/bk.png');
+    font-family: verdana;
+    /*"Times New Roman", serif;*/
+    font-size: 16px;
     line-height: 1.2;
     margin: 0 50px 50px 50px;
     color: #333;
@@ -16,10 +18,15 @@ div#content {
 }
 
 code {
-    display: block;
+    /*display: block;*/
     font-family: monospace;
-    background-color: #e59ecb;
+    /*background-color: #e59ecb;*/
     padding: 4px;
+}
+
+a code {
+    font-style: normal;
+    background-color: #D6E0EA;
 }
 
 pre {
@@ -51,7 +58,6 @@ h6 {
     font-family: cursive;
     line-height: 20px;
     margin-left: -20px;
-    display: inline-block;
 }
 
 h1 {
@@ -60,6 +66,9 @@ h1 {
 
 h2 {
     font-size: 35px;
+    display: block;
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
 }
 
 h3 {
@@ -133,7 +142,8 @@ a:hover {
     font-size: 14px;
     height: auto !important;
     /*width: 50%;*/
-    min-height: 200px;
+    /* min-height: 200px; */
+    margin: 0 20px 14px 0;
 }
 
 .line-highlight {
@@ -141,13 +151,13 @@ a:hover {
 }
 
 textarea~div {
-    display: inline;
+    display: block;
 }
 
 div canvas {
     border: 1px solid green;
-    margin: 0 0 0 20px;
-    position: absolute;
+
+    vertical-align: top;
 }
 
 img.hero {

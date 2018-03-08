@@ -4,8 +4,9 @@
 <head>
     <title>Learn you shaders</title>
 
-    <link rel="stylesheet" href="../css/style.css" />
+    
     <link rel="stylesheet" href="../lib/codemirror.css">
+    <link rel="stylesheet" href="../css/style.css" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
     <script src="../lib/p5.min.js"></script>
@@ -30,24 +31,18 @@
             I was motivated to understand exactly how it worked. I studied the code--dismantling and putting it back together. It took me quite a while, but I'd like to share what I have learned. Hopefully this tutorial will be of use to you.
         </p>
         <p>
-            We're going to build up the shader piecemeal. Each time a new concept is introduced, the code in the shader will be highlighted.
+            We're going to build up the shader piecemeal. Each time a new concept is introduced, the code in the shader will be highlighted. This tutorial expects that you're familiar with some shader built-in types, uniforms, textures, etc.
         </p>
- 
+
         <!-- ************* -->
         <h2>Step X: Empty Canvas</h2>
         <p>
-            Let's start by filling the canvas with a solid color. Oh boy, so much excitement.
+            Let's start by filling the canvas with a solid color. Oh boy, much excitement.
         </p>
+        <textarea class='js-code' data-example='code/sketch-1.js'></textarea>
+        <br/>
         <textarea class='glsl-code' data-params='{"width":400,"height":200}' data-example='code/0.glsl'></textarea>
 
-
-        <!-- ************* -->
-        <!--         <hr/>
-        <h2>Step 2: The Coordinate System</h2>
-        <img src='img/empty_graph.png' class='hero'>
-        <p>
-        </p>
- -->
 
 
         <!-- ************* -->
@@ -69,7 +64,7 @@
             </code>
         </p>
         <p>
-        <!--
+            <!--
             We need the resolution because we need to create a vector with normalized components.
 
             Each fragment will be the result of sampling the texture.
@@ -77,7 +72,7 @@
         -->
         </p>
         <p>
-            Our canvas is rectangular but the texture we're using is a square, so warping will occur. You'll notice the texture is also upside down! What the shit? Well, that just won't do...
+            Looks like our texture is getting stretched. Well, what do you expect? The canvas is a rectangle and the texture is a square. We're doing a 1:1 mapping, so yeah, it'll get stretched. You'll also notice the texture is also upside down! What the shit? Well, that just won't do...
         </p>
         <p>
             Note how we're using GLSL's syntactic sugar to perform component-wise division. If you are feeling verbose, you can write the division thus:
@@ -131,11 +126,11 @@
         <hr/>
         <h2>Step X: Perspective</h2>
         <p>
+            Hold onto your butts. This is where shit gets real. We're going to dive head-first into the magic of the demo. 
             The core 'magic' of the tunnel is the perspective that gets created. How is this done? We need to somehow repeat the texture more frequently the closer it is to the center of the canvas.
         </p>
         <p>
-            Let's head over to Google and plug in this formula:
-            <code>y = 1/x</code>
+            Let's head over to Google and plug in this formula: <a href="http://google.ca/search?q=y+%3D+1%2Fx"><code>y = 1/x</code></a>
         </p>
         <img src='img/google_graph.png' class='hero'>
         <p>
