@@ -12,7 +12,6 @@ void main() {
   // inverse division
   uv.x = mod(1.0 / uv.x, 1.0);
   uv.x = 1.0 - uv.x;
-  vec4 col = texture2D(u_texture0, uv);
-  gl_FragColor = vec4(1.8 * vec3(gl_FragCoord.x/u_res.x), 1.0) * col;
+  gl_FragColor = vec4(.38 * vec3(gl_FragCoord.x/u_res.x), 1.0) * texture2D(u_texture0, uv);
 }
 
