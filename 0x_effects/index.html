@@ -4,9 +4,10 @@
 <head>
     <title>Learn you shaders</title>
 
-
     <link rel="stylesheet" href="../lib/codemirror.css">
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/table.css" />
+
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
 
     <script src="../lib/p5.min.js"></script>
@@ -25,15 +26,15 @@
 
         <img src='img/hero.png' class='hero'>
         <p>
-            One of the first times I came across this tunnel effect demo was on ShaderToy. I was immediately captivated by terse code. In about 5 lines of code, a beautiful and convincing visualization emerges--it seemed magical.
+            One of the first times I came across this tunnel effect demo was on ShaderToy. I was immediately captivated by terse code. In about 5 lines of code, a beautiful and convincing visualization emerges as the user travels into a tunnel--it seemed magical.
         </p>
         <p>
-            I was motivated to understand exactly how it worked. I studied the code--dismantling and putting it back together. It took me quite a while, but I'd like to share what I have learned. Hopefully this tutorial will be of use to you.
+            I was motivated to understand exactly how it worked. I studied the code--dismantling and putting it back together. It took me quite a while and I'd like to share what I have learned. Hopefully this tutorial will be of use to you.
         </p>
-        <p>
-            We're going to build up the shader piecemeal. Each time a new concept is introduced, the code in the shader will be highlighted. This tutorial expects that you're familiar with some shader built-in types, uniforms, textures, etc.
+<!--         <p>
+            We're going to build up the shader piecemeal. I expect you're familiar with shader built-in types, uniforms, textures, etc.
         </p>
-
+ -->
         <!-- ************* -->
         <h2>Step X: Empty Canvas</h2>
         <p>
@@ -117,7 +118,7 @@
         <p>
             We scale the x component by 4 and apply mod. This ensures the final value will range from 0 to 1. The value 4 was arbitrary just to demonstrate that indeed the texture does repeat. Experiment with some values here as well as the second argument for mod. What does 2.0 do? 0.5?
         </p>
-        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[12]}' data-example='code/repeat_tex.glsl'></textarea>
+        <textarea class='glsl-code' data-params='{"width":200,"height":200,"tex0":"tex/debug.png","lines":[12]}' data-example='code/repeat_tex.glsl'></textarea>
 
 
 
@@ -141,42 +142,51 @@
         <table class="darkTable">
             <thead>
                 <tr>
-                    <th>y</th>
                     <th>x</th>
+                    <th>y = 1/x</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>10000</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+
+                <tr>
                     <td>0.0001</td>
+                    <td>10000</td>
                 </tr>
                 <tr>
-                    <td>8.0</td>
                     <td>0.125</td>
+                    <td>8.0</td>
                 </tr>
                 <tr>
-                    <td>4.0</td>
                     <td>0.25</td>
+                    <td>4.0</td>
+
                 </tr>
                 <tr>
-                    <td>2.6666</td>
                     <td>0.375</td>
+                    <td>2.6666</td>
+
                 </tr>
                 <tr>
-                    <td>2.0</td>
                     <td>0.5</td>
+                    <td>2.0</td>
+
                 </tr>
                 <tr>
-                    <td>1.6</td>
                     <td>0.625</td>
+                    <td>1.6</td>
+
                 </tr>
                 <tr>
-                    <td>1.3333</td>
                     <td>0.75</td>
+                    <td>1.3333</td>
                 </tr>
                 <tr>
-                    <td>1.142</td>
                     <td>0.875</td>
+                    <td>1.142</td>
                 </tr>
                 <tr>
                     <td>1.0</td>
