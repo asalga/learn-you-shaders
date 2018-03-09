@@ -2,6 +2,34 @@
     Andor Saga
 */
 
+function getZoom() {
+    return window.outerWidth / window.innerWidth;
+}
+
+$(window).ready(function() {
+
+    let msg = `Set your browser zoom level to 100%. Shaders may not render properly`;
+    let more_info = `<a href="">[more info]</a>`;
+    $(`<div id=warn>${msg} ${more_info}</div>`).appendTo('#b');
+
+    dothing();
+})
+
+function dothing() {
+
+    if (getZoom() !== 1) {
+        // $('#warn').css('display', 'block');
+        $('#warn').css('opacity', '1');
+    } else {
+        // $('#warn').css('display', 'none');
+        $('#warn').css('opacity', '0');
+    }
+}
+
+$(window).resize(function() {
+    dothing();
+});
+
 Number.prototype.clamp = function(min, max) {
     return Math.min(Math.max(this, min), max);
 };
@@ -58,9 +86,9 @@ function makeSketch(fs, params) {
             h = params.height || DefaultSketchHeight;
             p.createCanvas(w, h, p.WEBGL);
             if (params.loop) {
-                p.loop();
+                // p.loop();
             } else {
-                p.noLoop();
+                // p.noLoop();
             }
             p.noLoop();
         }
@@ -70,6 +98,7 @@ function makeSketch(fs, params) {
             p.shader(sh);
 
             if (fs.match(/uniform\s+vec2\s+u_res/)) {
+                console.log(w, h);
                 sh.setUniform('u_res', [w, h]);
             }
             if (fs.match(/uniform\s+float\s+u_time/)) {

@@ -9,8 +9,23 @@ body {
     font-size: 16px;
     line-height: 1.2;
     margin: 0 50px 50px 50px;
+
     color: #333;
     background-color: #fefefe;
+}
+
+#warn {
+    background-color: #e3ea6b;
+    box-shadow: 0 0 16px 2px #000;
+    color: #000;
+    display: block;
+    position: fixed;
+    left: 0;
+    text-align: center;
+    top: 0;
+    transition: all ease 0.5s;
+    padding: 8px;
+    width: 100%;
 }
 
 div#content {
@@ -174,4 +189,3 @@ img.hero {
     display: block;
     margin: 0 auto;
 }
-
