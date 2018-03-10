@@ -16,6 +16,7 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
   - add codemirror glsl syntax highlighting
   - make codemirror textareas writeable. make shaders recompile
   - add reset button for shaders
+  - add css reset
 
 # Credits
 Icon Credits:
