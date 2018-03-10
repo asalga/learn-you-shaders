@@ -52,6 +52,7 @@ function goTo(offset) {
     // only append '0' is needed
     let dstChapter = (num < 10) ? '0' + num : num;
 
+    //asalga.github.io
     window.location.href = '/' + dstChapter;
 }
 
