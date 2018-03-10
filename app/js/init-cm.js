@@ -6,30 +6,26 @@ function getZoom() {
     return window.outerWidth / window.innerWidth;
 }
 
-$(window).ready(function() {
-    // let msg = `Set your browser zoom level to 100%. Shaders may not render properly`;
-    // let more_info = `<a href=''>[more info]</a>`;
-    // $(`<div id=warn>${msg} ${more_info}</div>`).appendTo('body');
-    // toggleWarning();
-});
+$(window).ready(function() {});
+$(window).resize(function() {});
 
 /*
     Deprecated
     Calling pixelDensity(1) removes the need for this function
 */
 function toggleWarning() {
+    // let msg = `Set your browser zoom level to 100%. Shaders may not render properly`;
+    // let more_info = `<a href=''>[more info]</a>`;
+    // $(`<div id=warn>${msg} ${more_info}</div>`).appendTo('body');
+    // toggleWarning();
+
     let opacity = getZoom() != 1 ? 1 : 0;
     $('#warn').css('opacity', opacity);
 }
 
-$(window).resize(function() {});
-
 Number.prototype.clamp = function(min, max) {
     return Math.min(Math.max(this, min), max);
 };
-
-const DefaultSketchWidth = 320;
-const DefaultSketchHeight = 240;
 
 function goHome() {
     window.location.href = '/';
@@ -52,12 +48,17 @@ function goTo(offset) {
     // only append '0' is needed
     let dstChapter = (num < 10) ? '0' + num : num;
 
-    //asalga.github.io
-    window.location.href = `${window.location.origin}/chapters/${dstChapter}`;
+    // local vs ghpages
+    // http://localhost:9000/chapters/00/
+    // https://asalga.github.io/learn-you-shaders/app/chapters/00/
+
+    let base = window.location.href.match(/.*chapters/)[0];
+    window.location.href = base + '/' + dstChapter;
 }
 
-
 function makeSketch(fs, params) {
+    const DefaultSketchWidth = 320;
+    const DefaultSketchHeight = 240;
     let sh;
     let img0;
     let w, h;
