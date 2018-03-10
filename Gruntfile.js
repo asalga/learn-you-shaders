@@ -28,6 +28,27 @@ module.exports = function(grunt) {
 
 
         /**
+         *
+         */
+        copy: {
+            dev: {
+                files: [
+                    // MARKUP
+                    {
+                      expand: true,
+                      cwd: `${src}/`,
+                      src: 'index.html',
+                      dest: `${app}/`,
+                      filter: 'isFile'
+                    }
+                 
+                ]
+            }
+        },
+
+
+
+        /**
          * https://github.com/jsoverson/grunt-open
          * Opens the web server in the browser
          */
@@ -92,6 +113,8 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', [
+        'copy',
+        
         // LIVE UPDATES / PREVIEW
         'connect:livereload',
         'open',
