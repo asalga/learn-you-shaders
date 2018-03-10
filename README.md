@@ -5,13 +5,17 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
 
 # TODOs
 ----
+## High
+ - add hinting
+ - fix paths for shaders
+
+## Low
   - get working on gh-pages
   - add html templating to save on typing/bugs
   - add glsl prettify add-on so all shaders have consistent indentation
   - add codemirror glsl syntax highlighting
   - make codemirror textareas writeable. make shaders recompile
-  - add hinting
-
+  - add reset button for shaders
 
 # Credits
 ----
