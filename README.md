@@ -7,6 +7,7 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
 ## High
  - add hinting
  - fix paths for shaders
+ - integrate bootstrap
 
 ## Low
   - get working on gh-pages

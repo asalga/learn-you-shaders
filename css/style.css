@@ -14,20 +14,6 @@ body {
     background-color: #fefefe;
 }
 
-#warn {
-    background-color: #e3ea6b;
-    box-shadow: 0 0 16px 2px #000;
-    color: #000;
-    display: block;
-    position: fixed;
-    left: 0;
-    text-align: center;
-    top: 0;
-    transition: all ease 0.5s;
-    padding: 8px;
-    width: 100%;
-}
-
 div#content {
     padding: 0 100px;
 }
@@ -102,7 +88,6 @@ hr {
     width: 500px;
 }
 
-
 .title {
     color: #336699;
     font-family: cursive;
@@ -161,6 +146,7 @@ a:hover {
     display: inline-block;
     font-size: 14px;
     height: auto !important;
+    min-width: 500px;
     /*width: 50%;*/
     /* min-height: 200px; */
     margin: 0 20px 14px 0;
