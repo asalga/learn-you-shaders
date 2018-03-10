@@ -32,17 +32,13 @@ module.exports = function(grunt) {
          */
         copy: {
             dev: {
-                files: [
-                    // MARKUP
-                    {
-                      expand: true,
-                      cwd: `${src}/`,
-                      src: ['**'],
-                      dest: `${app}/`,
-                      filter: 'isFile'
-                    }
-                 
-                ]
+                files: [{
+                    expand: true,
+                    cwd: `${src}/`,
+                    src: ['**'],
+                    dest: `${app}/`,
+                    filter: 'isFile'
+                }]
             }
         },
 
@@ -108,6 +104,17 @@ module.exports = function(grunt) {
             options: {
                 spawn: true,
                 livereload: true
+            },
+            all: {
+                files: [
+                    `${src}/**/*.*`
+                ],
+                tasks: [
+                    'copy',
+                ],
+                options: {
+                    livereload: true
+                }
             }
         }
     });
