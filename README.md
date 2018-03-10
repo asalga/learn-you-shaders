@@ -4,10 +4,10 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
 
 
 # TODOs
-----
 ## High
  - add hinting
  - fix paths for shaders
+ - integrate bootstrap
 
 ## Low
   - get working on gh-pages
@@ -16,21 +16,19 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
   - add codemirror glsl syntax highlighting
   - make codemirror textareas writeable. make shaders recompile
   - add reset button for shaders
+  - add css reset
 
 # Credits
-----
 Icon Credits:
  - Advanced technology by Symbolon from the Noun Project
  - favicon by Freepik from flaticon.com licensed by CC 3.0 BY
 
 
-License
-----
+# License
 
 Dunno yet, MIT maybe?
 
 
 # Icon Credits
-----
 Advanced technology by Symbolon from the Noun Project
 favicon by Freepik from flaticon.com licensed by CC 3.0 BY
