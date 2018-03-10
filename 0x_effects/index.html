@@ -139,17 +139,43 @@
             We need to somehow repeat the texture more frequently the closer it is to the center of the canvas. Since we don't have a circular texture yet, we're going to make the texture repeat 'faster' as it appears closer to the left edge.
         </p>
         <p>
-            Alright, so there's the magic: Go to Google and plug in this formula: <a href="http://google.ca/search?q=y+%3D+1%2Fx"><code>y = 1/x</code></a>
+            Alright, so there's the magic: Go to Google and plug in this formula: <a href="http://google.ca/search?q=y+%3D+1%2Fx">
+                <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                <mrow>
+                    <mi>y</mi>
+                    <mo>=</mo>
+                    
+                    <mrow>
+                        <mfrac>
+                            <mn>1</mn>
+                            <mi>x</mi>
+                        </mfrac>
+                    </mrow>
+                </mrow>
+            </math></a>
         </p>
         <p>
             Below is a graphical representation as well as a table to help better understand the relationship between x and y.
         </p>
-        <img src='img/google_graph.png'>
+
+        <img src='img/graph.png' width="300px">
         <table class="darkTable">
             <thead>
                 <tr>
                     <th>x</th>
-                    <th>y = 1/x</th>
+                    <th><math xmlns='http://www.w3.org/1998/Math/MathML'>
+                <mrow>
+                    <mi>y</mi>
+                    <mo>=</mo>
+                    
+                    <mrow>
+                        <mfrac>
+                            <mn>1</mn>
+                            <mi>x</mi>
+                        </mfrac>
+                    </mrow>
+                </mrow>
+            </math></th>
                 </tr>
             </thead>
             <tbody>
