@@ -7,28 +7,22 @@ function getZoom() {
 }
 
 $(window).ready(function() {
-
-    let msg = `Set your browser zoom level to 100%. Shaders may not render properly`;
-    let more_info = `<a href="">[more info]</a>`;
-    $(`<div id=warn>${msg} ${more_info}</div>`).appendTo('#b');
-
-    dothing();
+    // let msg = `Set your browser zoom level to 100%. Shaders may not render properly`;
+    // let more_info = `<a href=''>[more info]</a>`;
+    // $(`<div id=warn>${msg} ${more_info}</div>`).appendTo('body');
+    // toggleWarning();
 })
 
-function dothing() {
-
-    if (getZoom() !== 1) {
-        // $('#warn').css('display', 'block');
-        $('#warn').css('opacity', '1');
-    } else {
-        // $('#warn').css('display', 'none');
-        $('#warn').css('opacity', '0');
-    }
+/*
+    Calling pixelDensity(1) removes the need for this.
+*/
+function toggleWarning() {
+    let opacity = getZoom() != 1 ? 1 : 0;
+    $('#warn').css('opacity', opacity);
 }
 
-$(window).resize(function() {
-    dothing();
-});
+$(window).resize(function() {});
+
 
 Number.prototype.clamp = function(min, max) {
     return Math.min(Math.max(this, min), max);
@@ -85,6 +79,7 @@ function makeSketch(fs, params) {
             w = params.width || DefaultSketchWidth;
             h = params.height || DefaultSketchHeight;
             p.createCanvas(w, h, p.WEBGL);
+            p.pixelDensity(1);
             if (params.loop) {
                 // p.loop();
             } else {
