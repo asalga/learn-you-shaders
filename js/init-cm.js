@@ -11,10 +11,11 @@ $(window).ready(function() {
     // let more_info = `<a href=''>[more info]</a>`;
     // $(`<div id=warn>${msg} ${more_info}</div>`).appendTo('body');
     // toggleWarning();
-})
+});
 
 /*
-    Calling pixelDensity(1) removes the need for this.
+    Deprecated
+    Calling pixelDensity(1) removes the need for this function
 */
 function toggleWarning() {
     let opacity = getZoom() != 1 ? 1 : 0;
@@ -22,7 +23,6 @@ function toggleWarning() {
 }
 
 $(window).resize(function() {});
-
 
 Number.prototype.clamp = function(min, max) {
     return Math.min(Math.max(this, min), max);

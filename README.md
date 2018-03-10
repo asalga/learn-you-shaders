@@ -10,6 +10,7 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
   - add glsl prettify add-on so all shaders have consistent indentation
   - add codemirror glsl syntax highlighting
   - make codemirror textareas writeable. make shaders recompile
+  - add hinting
 
 
 # Credits
