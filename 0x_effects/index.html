@@ -14,9 +14,15 @@
     <script src="../lib/codemirror.js"></script>
     <script src="../mode/markdown/js.js"></script>
     <script src="../lib/jquery-3.2.1.min.js"></script>
+
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
 <body>
+
+
+
+
     <header>
         <h1 class="title">Learn you Shaders</h1>
         <h1>Tunnel Viz</h1>
@@ -24,19 +30,19 @@
     <hr/>
     <div id="content">
 
-      <!--   <img src='img/hero.png' class='hero'>
+        <!--   <img src='img/hero.png' class='hero'>
         <p>
             One of the first times I came across this tunnel effect demo was on ShaderToy. I was immediately captivated by terse code. In about 5 lines of code, a beautiful and convincing visualization emerges as the user travels into a tunnel--it seemed magical.
         </p>
         <p>
             I was motivated to understand exactly how it worked. I studied the code--dismantling and putting it back together. It took me quite a while and I'd like to share what I have learned. Hopefully this tutorial will be of use to you.
         </p> -->
-<!--         <p>
+        <!--         <p>
             We're going to build up the shader piecemeal. I expect you're familiar with shader built-in types, uniforms, textures, etc.
         </p>
  -->
         <!-- ************* -->
-      <!--   <h2>Step X: Empty Canvas</h2>
+        <!--   <h2>Step X: Empty Canvas</h2>
         <p>
             Let's start by filling the canvas with a solid color. Oh boy, much excitement.
         </p>
@@ -197,13 +203,34 @@
         <p>
             This graph show that y has a sharp decline and tends towards infinity as x increases in size.  However our x ranges from 0 to 1, not 0 to 26 as the table suggests.
         </p>
+        <p>
 
 
+            <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                <mrow>
+                    <mi>y</mi>
+                    <mo>=</mo>
+                    <mi>mod</mi>
+                    <mo>&#8289;</mo>
+                    <mo>(</mo>
+                    <mrow>
+                        <mfrac>
+                            <mn>1.0</mn>
+                            <mi>x</mi>
+                        </mfrac>
+                        <mo>,</mo>
+                        <mn>1.0</mn>
+                    </mrow>
+                    <mo>)</mo>
+                </mrow>
+            </math>
+            <br />
+            <br />
+
+            <img src='img/y_mod1x1.jpg' width='200px' />
+        </p>
 
         <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[12]}' data-example='code/perspective.glsl'></textarea> -->
-
-
-
 
         <!-- ************* -->
         <hr/>
