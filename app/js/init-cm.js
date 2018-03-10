@@ -53,7 +53,7 @@ function goTo(offset) {
     let dstChapter = (num < 10) ? '0' + num : num;
 
     //asalga.github.io
-    window.location.href = '/' + dstChapter;
+    window.location.href = `${window.location.origin}/chapters/${dstChapter}`;
 }
 
 

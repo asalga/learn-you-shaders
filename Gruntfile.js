@@ -59,19 +59,19 @@ module.exports = function(grunt) {
          *  https://www.npmjs.com/package/grunt-processhtml
          *  process <!-- build:include --> directives
          */
-        // processhtml: {
-        //     dev: {
-        //         options: {
-        //             process: true,
-        //             data: config,
-        //             strip: true,
-        //         },
-        //         files: [{
-        //             src: `${src}/index.html`,
-        //             dest: `${app}/index.html`
-        //         }]
-        //     }
-        // },
+        processhtml: {
+            dev: {
+                options: {
+                    process: true
+                    // data: config,
+                    // strip: true,
+                },
+                files: [{
+                    src: `${app}/chapters/00/index.html`,
+                    dest: `${app}/chapters/00/index.html`
+                }]
+            }
+        },
 
 
         /**
@@ -111,6 +111,7 @@ module.exports = function(grunt) {
                 ],
                 tasks: [
                     'copy',
+                    'processhtml'
                 ],
                 options: {
                     livereload: true
@@ -120,7 +121,9 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', [
+        
         'copy',
+        'processhtml',
 
         // LIVE UPDATES / PREVIEW
         'connect:livereload',
