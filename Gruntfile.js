@@ -37,7 +37,7 @@ module.exports = function(grunt) {
                     {
                       expand: true,
                       cwd: `${src}/`,
-                      src: 'index.html',
+                      src: ['**'],
                       dest: `${app}/`,
                       filter: 'isFile'
                     }
@@ -114,7 +114,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', [
         'copy',
-        
+
         // LIVE UPDATES / PREVIEW
         'connect:livereload',
         'open',
