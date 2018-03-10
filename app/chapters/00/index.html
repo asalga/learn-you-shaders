@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Learn you shaders</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../lib/codemirror.css">
+    <script src="../lib/p5.min.js"></script>
+
+    <script src="../lib/p5.min.js"></script>
+    <script src="../lib/codemirror.js"></script>
+    <script src="../mode/markdown/js.js"></script>
+    <script src="../lib/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Unit 0</h1>
+    </header>
+    <hr/>
+    <div id="content">
+        <h1>Who dis for?</h1>
+        <p>
+            This text is aimed for developers who want to learn fragment shaders who come from a background of JavaScript, Processing, Processing.js, P5.js, etc. It's also not for anyone who likes really dry technical stuff. I'm writing this pretty informally since I basically don't have a lot of time on my hands.
+        </p>
+        <hr/>
+        <!--  <h1>Contents</h1>
+        <p>
+            I will include material about fragment shaders but I will won't mention vertex shaders very much.
+        </p> -->
+
+        <h2>What's <em>NOT</em> a fragment shader?</h2>
+        <p>
+            A fragment shader isn't just some thing that calculates lighting. It's also not a vertex shader or geometry shader. Those things are for doing other stuff.
+        </p>
+        <p>
+            A fragment shader is just some code that gets executed on the GPU on your computer instead of the CPU. You can imagine that shaders run pretty damn fast because gamers sure like their FPS. This need for performance has given manufacturers lots of $$ to pour into the effort of making GPUs fast. Thanks gamers!
+        </p>
+        <p>
+            So, why is it called a shader? Basically, as far as I know the name comes from <em>ShaderTree</em> which <em>used</em> to only be responsible for ligthing...but since then things have changed and we can use fragment shaders for much more interesting things.
+        </p>
+        <p>
+            At the end of the day, a fragment shader calculates a color for every pixel of a surface on a 3D primitive. That's basically all it does.
+        </p>
+        <hr/>
+        <h1>TL;DR</h1>
+        <ul>
+            <li>This is for Processing folks who wanna learn fragment shaders</li>
+            <li>Each pixel of a 'surface' has the same fragment shader run on it to determine its color</li>
+            <li>Shaders are minblowingly fast</li>
+        </ul>
+    </div>
+
+    <hr/>
+    <footer>
+        <ul class="nav">
+            <li><a href="">&lt; Prev</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="">Next &gt;</a></li>
+        </ul>
+    </footer>
+    <script src="/js/init-cm.js"></script>
+
+</body>
+
+</html>
