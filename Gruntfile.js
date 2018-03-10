@@ -10,6 +10,18 @@ module.exports = function(grunt) {
     const tmp = '.tmp';
     const app = 'app';
 
+    // Probably a better way to do this with globbing, but I have no
+    // idea how
+    let chapters = ['00', '01', '02', '03', '04', '0x_effects'];
+    let chapterPaths = [];
+    chapters.forEach(function(v, i, a) {
+        let prefix = `${app}/chapters`;
+        chapterPaths.push({
+            'src': `${prefix}/${v}/index.html`,
+            'dest': `${prefix}/${v}/index.html`
+        });
+    });
+
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.initConfig({
@@ -66,10 +78,8 @@ module.exports = function(grunt) {
                     // data: config,
                     // strip: true,
                 },
-                files: [{
-                    src: `${app}/chapters/00/index.html`,
-                    dest: `${app}/chapters/00/index.html`
-                }]
+
+                files: chapterPaths
             }
         },
 
@@ -121,7 +131,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', [
-        
+
         'copy',
         'processhtml',
 
