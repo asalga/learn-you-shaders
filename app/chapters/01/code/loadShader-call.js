@@ -1,1 +1,0 @@
-loadShader('data/vert.glsl', 'data/frag.glsl');
