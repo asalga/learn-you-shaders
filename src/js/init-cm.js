@@ -12,7 +12,8 @@ Number.prototype.clamp = function(min, max) {
 };
 
 function goHome() {
-  window.location.href = '/';
+  let base = window.location.href.match(/.*chapters/)[0];
+  window.location.href = base + '/' + '00';
 }
 
 
@@ -21,6 +22,10 @@ function goTo(offset) {
   let tokens = window.location.href.split('/');
   let tokenIdx = tokens.length - 2;
   let num = parseInt(tokens[tokenIdx]) + offset;
+
+  if (num < 0) {
+    return;
+  }
 
   // only append '0' is needed
   let dstChapter = (num < 10) ? '0' + num : num;
