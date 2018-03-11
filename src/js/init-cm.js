@@ -2,6 +2,8 @@
     Andor Saga
 */
 
+'use strict';
+
 function getZoom() {
     return window.outerWidth / window.innerWidth;
 }

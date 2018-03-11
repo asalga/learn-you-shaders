@@ -9,12 +9,12 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
  - integrate bootstrap
 
 ## Low
-  - add html templating to save on typing/bugs
   - add glsl prettify add-on so all shaders have consistent indentation
   - add codemirror glsl syntax highlighting
   - make codemirror textareas writeable. make shaders recompile
   - add reset button for shaders
   - add css reset
+  - fix PREV button on chapter 00
 
 # Credits
 Icon Credits:
