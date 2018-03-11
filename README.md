@@ -15,10 +15,11 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
   - add reset button for shaders
   - add css reset
   - fix PREV button on chapter 00
+  - add cover page
 
 # Credits
-## Source
-Andor Saga
+## Code
+ - Andor Saga
 
 ## Icons
  - Advanced technology by Symbolon from the Noun Project

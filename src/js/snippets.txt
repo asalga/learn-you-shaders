@@ -1,0 +1,18 @@
+
+function getZoom() {
+  return window.outerWidth / window.innerWidth;
+}
+
+/*
+    Deprecated
+    Calling pixelDensity(1) removes the need for this function
+*/
+function toggleWarning() {
+    // let msg = `Set your browser zoom level to 100%. Shaders may not render properly`;
+    // let more_info = `<a href=''>[more info]</a>`;
+    // $(`<div id=warn>${msg} ${more_info}</div>`).appendTo('body');
+    // toggleWarning();
+
+    let opacity = getZoom() !== 1 ? 1 : 0;
+    $('#warn').css('opacity', opacity);
+}
