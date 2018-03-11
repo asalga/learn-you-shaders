@@ -1,0 +1,1 @@
+rect(0, 0, windowWidth, windowHeight, 1, 1);
