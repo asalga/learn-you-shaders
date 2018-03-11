@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<!-- HEAD TEMPLATE -->
+<head>
+    <title>Learn you shaders</title>
+
+    <link rel="stylesheet" href="../../lib/codemirror.css">
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/table.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <script src="../../lib/p5.min.js"></script>
+    <script src="../../lib/codemirror.js"></script>
+    <script src="../../mode/markdown/js.js"></script>
+    <script src="../../lib/jquery-3.2.1.min.js"></script>
+
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <header>
+        <h1 class="title">Learn you Shaders</h1>
+        <h1>Unit 3: 'Simple' Shapes</h1>
+    </header>
+    <hr/>
+
+
+    <div id="content">
+
+        <h2>Circles</h2>
+        <p>We're going to learn how to draw a circle. Yay</p>
+
+        <textarea class='glsl-code' data-example="shaders/circle.glsl"></textarea>
+
+        <!-- ********* -->
+        <hr/>
+        <h2>Play time!</h2>
+        <p>
+            <ul class="exercises">
+                <li>How can you make the circle follow your cursor?</li>
+                <li>Update the shader code to 'hollow out' the circle</li>
+            </ul>
+        </p>
+
+    </div>
+
+
+    <!-- FOOTER TEMPLATE -->
+<hr/>
+<footer>
+    <ul class="nav">
+        <li><a onclick="goPrev();">&lt; Prev</a></li>
+        <li><a onclick="goHome();">Home</a></li>
+        <li><a onclick="goNext();">Next &gt;</a></li>
+    </ul>
+</footer>
+<script src="../../js/init-cm.js"></script>
+</body>
+
+</html>

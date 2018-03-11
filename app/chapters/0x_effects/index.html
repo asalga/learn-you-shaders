@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+<!-- HEAD TEMPLATE -->
+<head>
+    <title>Learn you shaders</title>
+
+    <link rel="stylesheet" href="../../lib/codemirror.css">
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/table.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <script src="../../lib/p5.min.js"></script>
+    <script src="../../lib/codemirror.js"></script>
+    <script src="../../mode/markdown/js.js"></script>
+    <script src="../../lib/jquery-3.2.1.min.js"></script>
+
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+
+<body>
+
+    <header>
+        <h1 class="title">Learn you Shaders</h1>
+        <h1>Tunnel Viz</h1>
+    </header>
+    <hr/>
+    <div id="content">
+
+        <!--   <img src='img/hero.png' class='hero'>
+        <p>
+            One of the first times I came across this tunnel effect demo was on ShaderToy. I was immediately captivated by terse code. In about 5 lines of code, a beautiful and convincing visualization emerges as the user travels into a tunnel--it seemed magical.
+        </p>
+        <p>
+            I was motivated to understand exactly how it worked. I studied the code--dismantling and putting it back together. It took me quite a while and I'd like to share what I have learned. Hopefully this tutorial will be of use to you.
+        </p> -->
+        <!--         <p>
+            We're going to build up the shader piecemeal. I expect you're familiar with shader built-in types, uniforms, textures, etc.
+        </p>
+ -->
+        <!-- ************* -->
+        <!--   <h2>Step X: Empty Canvas</h2>
+        <p>
+            Let's start by filling the canvas with a solid color. Oh boy, much excitement.
+        </p>
+        <textarea class='js-code' data-example='code/sketch-1.js'></textarea>
+        <br/>
+        <textarea class='glsl-code' data-params='{"width":400,"height":200}' data-example='code/0.glsl'></textarea>
+
+ -->
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step X: Texture</h2>
+        <p>
+            Let's map a texture onto the canvas.
+        </p>
+        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,5,6]}' data-example='code/texture.glsl'></textarea>
+
+        <p>
+            We need 2 uniforms: a texture unit and a resolution.
+        </p>
+        <p>
+            The <em>texture2D</em> function expects a texture and a vec2 with normalized components. For the coordinates, we'll take the current pixel location and divide by the resolution.
+            <code>
+                [x] 0..400 => 0..1<br />
+                [y] 0..200 => 0..1
+            </code>
+        </p>
+        <p>
+            <!--
+            We need the resolution because we need to create a vector with normalized components.
+
+            Each fragment will be the result of sampling the texture.
+            the bottom left corner is 0,0. The top-right corner will be 1,1.
+        -->
+        </p>
+        <p>
+            Looks like our texture is getting stretched. Well, what do you expect? The canvas is a rectangle and the texture is a square. We're doing a 1:1 mapping, so yeah, it'll get stretched. You'll also notice the texture is also upside down! What the shit? Well, that just won't do...
+        </p>
+        <p>
+            Note how we're using GLSL's syntactic sugar to perform component-wise division. If you are feeling verbose, you can write the division thus:
+            <br />
+            <textarea class='glsl-snippet'>vec2 uv = vec2(gl_FragCoord.x / u_res.x, gl_FragCoord.y / u_res.y);</textarea>
+        </p>
+
+        <div class='advanced'>
+            <img src="../public/icons/advanced.png" class="icon" />
+            <span>Texture repeating</span>
+            <br />
+            <p>
+                Wait a second! Doesn't texture2D do texture repeating? Can't we pass in non-normalized values? Yes. OpenGL and WebGL have a function we can call to set the texture repetition parameter (repeat,stretch,etc.). Try multiplying the uv.x component by something greater than 1. What happens?
+            </p>
+            <p>
+                We're going to pretend that texture2D expects normalized values, so we'll just take care of 'wrapping' the values ourselves.
+            </p>
+        </div>
+
+
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step X: Texture Flip</h2>
+        <p>
+            WebGL has this weird behaviour where textures are flipped. We can actually solve this by getting the rendered from p5 and calling a function that tells WebGL if we want textures fippped.
+        </p>
+        <p>
+            But since we have power of shaders, we can do the flip within the shader itself. Since we know that the maximum value of y is 1, we start with 1 and subtract whatever the y value is. This remaps the y-coordinates from 0..1 to 1..0.
+        </p>
+        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[11]}' data-example='code/flip_y.glsl'></textarea> -->
+
+
+
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step X: Repeating the Texture</h2>
+        <p>
+            Examine the final demo and you can see that the texture is repeated. We can easily achieve this by using the built-in mod function. Not surprisingly, mod accepts 2 values.
+        </p>
+        <p>
+            We scale the x component by 4 and apply mod. This ensures the final value will range from 0 to 1. The value 4 was arbitrary just to demonstrate that indeed the texture does repeat. Experiment with some values here as well as the second argument for mod. What does 2.0 do? 0.5?
+        </p>
+        <!-- <textarea class='glsl-code' data-params='{"width":200,"height":200,"tex0":"tex/debug.png","lines":[12]}' data-example='code/repeat_tex.glsl'></textarea> -->
+
+
+
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step X: Perspective</h2>
+        <p>
+            Hold onto your butts. This is where shit gets real. We're going to dive head-first into the magic of the demo. The core 'magic' of the tunnel is the perspective that gets created. How is this done?
+        </p>
+        <p>
+            We need to somehow repeat the texture more frequently the closer it is to the center of the canvas. Since we don't have a circular texture yet, we're going to make the texture repeat 'faster' as it appears closer to the left edge.
+        </p>
+        <p>
+            Alright, so there's the magic: Go to Google and plug in this formula: <a href="http://google.ca/search?q=y+%3D+1%2Fx">
+                <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                <mrow>
+                    <mi>y</mi>
+                    <mo>=</mo>
+                    
+                    <mrow>
+                        <mfrac>
+                            <mn>1</mn>
+                            <mi>x</mi>
+                        </mfrac>
+                    </mrow>
+                </mrow>
+            </math></a>
+        </p>
+        <p>
+            Below is a graphical representation as well as a table to help better understand the relationship between x and y.
+        </p>
+
+        <img src='img/graph.png' width="300px">
+        <table class="darkTable">
+            <thead>
+                <tr>
+                    <th>x</th>
+                    <th><math xmlns='http://www.w3.org/1998/Math/MathML'>
+                <mrow>
+                    <mi>y</mi>
+                    <mo>=</mo>
+                    
+                    <mrow>
+                        <mfrac>
+                            <mn>1</mn>
+                            <mi>x</mi>
+                        </mfrac>
+                    </mrow>
+                </mrow>
+            </math></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+
+                <tr>
+                    <td>0.0001</td>
+                    <td>10000</td>
+                </tr>
+                <tr>
+                    <td>0.125</td>
+                    <td>8.0</td>
+                </tr>
+                <tr>
+                    <td>0.25</td>
+                    <td>4.0</td>
+
+                </tr>
+                <tr>
+                    <td>0.375</td>
+                    <td>2.6666</td>
+
+                </tr>
+                <tr>
+                    <td>0.5</td>
+                    <td>2.0</td>
+
+                </tr>
+                <tr>
+                    <td>0.625</td>
+                    <td>1.6</td>
+
+                </tr>
+                <tr>
+                    <td>0.75</td>
+                    <td>1.3333</td>
+                </tr>
+                <tr>
+                    <td>0.875</td>
+                    <td>1.142</td>
+                </tr>
+                <tr>
+                    <td>1.0</td>
+                    <td>1.0</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            This graph show that y has a sharp decline and tends towards infinity as x increases in size.  However our x ranges from 0 to 1, not 0 to 26 as the table suggests.
+        </p>
+        <p>
+
+
+            <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                <mrow>
+                    <mi>y</mi>
+                    <mo>=</mo>
+                    <mi>mod</mi>
+                    <mo>&#8289;</mo>
+                    <mo>(</mo>
+                    <mrow>
+                        <mfrac>
+                            <mn>1.0</mn>
+                            <mi>x</mi>
+                        </mfrac>
+                        <mo>,</mo>
+                        <mn>1.0</mn>
+                    </mrow>
+                    <mo>)</mo>
+                </mrow>
+            </math>
+            <br />
+            <br />
+
+            <img src='img/y_mod1x1.jpg' width='200px' />
+        </p>
+
+        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[12]}' data-example='code/perspective.glsl'></textarea> -->
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step X: Making it Circular</h2>
+        <p>
+            ....
+        </p>
+        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,10,11,12,13,14,15]}' data-example='code/circular.glsl'></textarea> -->
+
+
+
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step X: Fog</h2>
+        <p>
+            The center of the demo has this mushyness. Let's fix that. And the solution is pretty simple. We're just going to cover it up :)
+        </p>
+        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[16]}' data-example='code/fog.glsl'></textarea> -->
+
+
+
+
+        <!-- ************* -->
+        <hr>
+        <h2>Step X: Texture</h2>
+        <p>
+            Finally, we're going to replace the debug image to the actual texture.
+        </p>
+        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/tex.jpg"}' data-example='code/final.glsl'></textarea> -->
+
+
+
+
+        <!-- ************* -->
+        <hr>
+        <h2>Step X: Adding Movement</h2>
+        <p>
+            Let's make it seem like the user is moving through the tunnel.
+        </p>
+        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"loop":"true","tex0":"tex/tex.jpg","lines":[13]}' data-example='code/movement.glsl'></textarea> -->
+
+
+
+
+        <!-- ************* -->
+        <h2>Step X: Adding Interactivity</h2>
+        <p>
+            What we have is great, but let's go one step further.
+        </p>
+        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"loop":"true","tex0":"tex/tex.jpg","lines":[9,16]}' data-example='code/interactivity.glsl'></textarea> -->
+
+
+
+
+        <!-- ********* -->
+        <hr/>
+        <h2>Play time!</h2>
+        <p>
+            <ul class="exercises">
+                <li>Remove the fog from the final demo. Note what the center looks like. (hint: it's mush)</li>
+                <li>Make the tunnel spin</li>
+                <li>Add a bump map texture</li>
+            </ul>
+        </p>
+    </div>
+
+
+    <!-- FOOTER TEMPLATE -->
+<hr/>
+<footer>
+    <ul class="nav">
+        <li><a onclick="goPrev();">&lt; Prev</a></li>
+        <li><a onclick="goHome();">Home</a></li>
+        <li><a onclick="goNext();">Next &gt;</a></li>
+    </ul>
+</footer>
+<script src="../../js/init-cm.js"></script>
+
+</body>
+
+</html>
