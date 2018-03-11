@@ -41,6 +41,7 @@ module.exports = function(grunt) {
         `!${src}/js/vendor/**/*.js`
       ]
     },
+    
 
     /** 
      */
@@ -69,7 +70,6 @@ module.exports = function(grunt) {
         }]
       }
     },
-
 
 
     /**

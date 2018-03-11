@@ -5,7 +5,7 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
 
 # TODOs
 ## High
- - add hinting
+ - add html hinting
  - integrate bootstrap
 
 ## Low
@@ -16,6 +16,7 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
   - add css reset
   - fix PREV button on chapter 00
   - add cover page
+  - add prod build task
 
 # Credits
 ## Code
