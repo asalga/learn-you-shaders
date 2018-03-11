@@ -11,6 +11,7 @@
         <h1 class="title">Learn you Shaders</h1>
         <h1>Tunnel Viz</h1>
     </header>
+
     <hr/>
     <div id="content">
 
@@ -123,20 +124,22 @@
             We need to somehow repeat the texture more frequently the closer it is to the center of the canvas. Since we don't have a circular texture yet, we're going to make the texture repeat 'faster' as it appears closer to the left edge.
         </p>
         <p>
-            Alright, so there's the magic: Go to Google and plug in this formula: <a href="http://google.ca/search?q=y+%3D+1%2Fx">
+            Alright, so there's the magic: Go to Google and plug in this formula:
+            <a href="http://google.ca/search?q=y+%3D+1%2Fx">
                 <math xmlns='http://www.w3.org/1998/Math/MathML'>
-                <mrow>
-                    <mi>y</mi>
-                    <mo>=</mo>
-                    
                     <mrow>
-                        <mfrac>
-                            <mn>1</mn>
-                            <mi>x</mi>
-                        </mfrac>
+                        <mi>y</mi>
+                        <mo>=</mo>
+
+                        <mrow>
+                            <mfrac>
+                                <mn>1</mn>
+                                <mi>x</mi>
+                            </mfrac>
+                        </mrow>
                     </mrow>
-                </mrow>
-            </math></a>
+                </math>
+            </a>
         </p>
         <p>
             Below is a graphical representation as well as a table to help better understand the relationship between x and y.
@@ -147,19 +150,21 @@
             <thead>
                 <tr>
                     <th>x</th>
-                    <th><math xmlns='http://www.w3.org/1998/Math/MathML'>
-                <mrow>
-                    <mi>y</mi>
-                    <mo>=</mo>
-                    
-                    <mrow>
-                        <mfrac>
-                            <mn>1</mn>
-                            <mi>x</mi>
-                        </mfrac>
-                    </mrow>
-                </mrow>
-            </math></th>
+                    <th>
+                        <math xmlns='http://www.w3.org/1998/Math/MathML'>
+                            <mrow>
+                                <mi>y</mi>
+                                <mo>=</mo>
+
+                                <mrow>
+                                    <mfrac>
+                                        <mn>1</mn>
+                                        <mi>x</mi>
+                                    </mfrac>
+                                </mrow>
+                            </mrow>
+                        </math>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -240,7 +245,12 @@
             <img src='img/y_mod1x1.jpg' width='200px' />
         </p>
 
-        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[12]}' data-example='code/perspective.glsl'></textarea> -->
+        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[12]}' data-example='code/perspective.glsl'></textarea>
+
+        <p>
+            Play with the equation. What about using 2.0/x? Try plugging in a few different constants.
+        </p>
+
 
         <!-- ************* -->
         <hr/>
@@ -248,7 +258,16 @@
         <p>
             ....
         </p>
-        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,10,11,12,13,14,15]}' data-example='code/circular.glsl'></textarea> -->
+
+        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png"}' data-example='code/centered.glsl'></textarea>
+
+        <!-- ************* -->
+        <hr/>
+        <h2>Step X: Making it Circular</h2>
+        <p>
+            ....
+        </p>
+        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,10,11,12,13,14,15]}' data-example='code/circular.glsl'></textarea>
 
 
 
