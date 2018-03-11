@@ -17,16 +17,12 @@ Learn how to fragment shade! Mostly for Processing/P5.js/Processing.js developer
   - fix PREV button on chapter 00
 
 # Credits
-Icon Credits:
+## Source
+Andor Saga
+
+## Icons
  - Advanced technology by Symbolon from the Noun Project
  - favicon by Freepik from flaticon.com licensed by CC 3.0 BY
 
-
 # License
-
 Dunno yet, MIT maybe?
-
-
-# Icon Credits
-Advanced technology by Symbolon from the Noun Project
-favicon by Freepik from flaticon.com licensed by CC 3.0 BY
