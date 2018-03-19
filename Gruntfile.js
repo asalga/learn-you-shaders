@@ -146,7 +146,6 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', [
-
     // VALIDATION
     'jshint',
     // html validation
