@@ -1,7 +1,7 @@
 /*
   Chapter navigation
 */
-
+'use strict';
 
 function goHome() {
   let base = window.location.href.match(/.*chapters/)[0];

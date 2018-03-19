@@ -11,6 +11,7 @@ Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
 };
 
+
 function makeSketch(fs, params) {
   const DefaultSketchWidth = 320;
   const DefaultSketchHeight = 240;
@@ -128,16 +129,15 @@ function makeSketch(fs, params) {
           let divContainer = $('<div>')
             .insertAfter(t)
             .addClass('lazy')
-            .attr('id', relPath)
-            .attr('data-lys-code', fs)
-            .attr('data-lys-params', strParams)
-            .attr('data-lys-relPath', relPath)
-            .attr('data-loader', 'customLoaderName');
+            .attr({
+              'id': relPath,
+              'data-lys-code': fs,
+              'data-lys-relPath': relPath,
+              'data-lys-params': strParams,
+              'data-loader': 'customLoaderName'
+            });
 
           $(t).prependTo(divContainer);
-
-          // Moved to lazy load
-          // new p5(makeSketch(fs, params), relPath);
         }
 
         let cm = CodeMirror.fromTextArea(t, {
@@ -151,29 +151,16 @@ function makeSketch(fs, params) {
           });
         }
       })
-
-
-      // Once we filled in all the textareas with our code,
-      // we're ready to lazy load the canvases
       .then(() => {
+        // Lazy loading canvases
         $(function() {
-
           $('.lazy').lazy({
-            delay: 2500,
             customLoaderName: function(el) {
-              console.log('customLoaderName');
-            },
-            afterLoad: function(el) {
-              console.log('afterLoad');
-              let fs = el.attr('data-lys-code');
-              let relPath = el.attr('data-lys-relPath');
+              let fragCode = el.attr('data-lys-code');
               let strParams = el.attr('data-lys-params');
+              let relPath = el.attr('data-lys-relPath');
               let params = strParams ? JSON.parse(strParams) : {};
-
-              new p5(makeSketch(fs, params), relPath);
-            },
-            beforeLoad: function() {
-              console.log('beforeLoad');
+              new p5(makeSketch(fragCode, params), relPath);
             }
           });
         });
