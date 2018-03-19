@@ -11,42 +11,6 @@ Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
 };
 
-function goHome() {
-  let base = window.location.href.match(/.*chapters/)[0];
-  window.location.href = base + '/' + '00';
-}
-
-
-function goTo(offset) {
-  // ["http:", "", "localhost:5000", "04", ""]
-  let tokens = window.location.href.split('/');
-  let tokenIdx = tokens.length - 2;
-  let num = parseInt(tokens[tokenIdx]) + offset;
-
-  if (num < 0) {
-    return;
-  }
-
-  // only append '0' is needed
-  let dstChapter = (num < 10) ? '0' + num : num;
-
-  // local vs ghpages
-  // http://localhost:9000/chapters/00/
-  // https://asalga.github.io/learn-you-shaders/app/chapters/00/
-
-  let base = window.location.href.match(/.*chapters/)[0];
-  window.location.href = base + '/' + dstChapter;
-}
-
-function goNext() {
-  goTo(1);
-}
-
-function goPrev() {
-  goTo(-1);
-}
-
-
 function makeSketch(fs, params) {
   const DefaultSketchWidth = 320;
   const DefaultSketchHeight = 240;
@@ -83,11 +47,9 @@ function makeSketch(fs, params) {
     };
 
     p.draw = function() {
-
       p.shader(sh);
 
       if (fs.match(/uniform\s+vec2\s+u_res/)) {
-        console.log(w, h);
         sh.setUniform('u_res', [w, h]);
       }
       if (fs.match(/uniform\s+float\s+u_time/)) {
@@ -132,7 +94,8 @@ function makeSketch(fs, params) {
     let strParams = $(t).attr('data-params');
     let params = strParams ? JSON.parse(strParams) : {};
 
-    // inline code
+    // If we have a textarea without a path, it means that textarea
+    // only has some inline code that doesn't require CodeMirror
     if (!path) {
       CodeMirror.fromTextArea(t, {
         lineNumbers: true,
@@ -153,10 +116,28 @@ function makeSketch(fs, params) {
         // Get the div immediately following the textarea,
         // this is where we'll load the sketch
         // But p5 expects it to have to have an ID, so assign it one.
-        if ($(t).hasClass('glsl-code')) {
-          let divContainer = $('<div>').insertAfter(t).attr('id', relPath);
+
+        // Other snippets are for js or vert shaders
+        // that we don't want to make sketches for
+
+        // If we have a glsl-code AND it should render
+        // we'll need to build up some meta data stuff.
+        if ($(t).hasClass('glsl-code') && (params && params.render !== 'false')) {
+
+          // Will contain the glsl CodeMirror and the canvas
+          let divContainer = $('<div>')
+            .insertAfter(t)
+            .addClass('lazy')
+            .attr('id', relPath)
+            .attr('data-lys-code', fs)
+            .attr('data-lys-params', strParams)
+            .attr('data-lys-relPath', relPath)
+            .attr('data-loader', 'customLoaderName');
+
           $(t).prependTo(divContainer);
-          new p5(makeSketch(fs, params), relPath);
+
+          // Moved to lazy load
+          // new p5(makeSketch(fs, params), relPath);
         }
 
         let cm = CodeMirror.fromTextArea(t, {
@@ -169,6 +150,33 @@ function makeSketch(fs, params) {
             cm.addLineClass(l, null, 'line-highlight');
           });
         }
+      })
+
+
+      // Once we filled in all the textareas with our code,
+      // we're ready to lazy load the canvases
+      .then(() => {
+        $(function() {
+
+          $('.lazy').lazy({
+            delay: 2500,
+            customLoaderName: function(el) {
+              console.log('customLoaderName');
+            },
+            afterLoad: function(el) {
+              console.log('afterLoad');
+              let fs = el.attr('data-lys-code');
+              let relPath = el.attr('data-lys-relPath');
+              let strParams = el.attr('data-lys-params');
+              let params = strParams ? JSON.parse(strParams) : {};
+
+              new p5(makeSketch(fs, params), relPath);
+            },
+            beforeLoad: function() {
+              console.log('beforeLoad');
+            }
+          });
+        });
       });
   });
 })();

@@ -15,27 +15,40 @@
     <hr/>
     <div id="content">
 
-        <!--   <img src='img/hero.png' class='hero'>
+        <img class='hero' src='img/hero.png'>
         <p>
             One of the first times I came across this tunnel effect demo was on ShaderToy. I was immediately captivated by terse code. In about 5 lines of code, a beautiful and convincing visualization emerges as the user travels into a tunnel--it seemed magical.
         </p>
         <p>
             I was motivated to understand exactly how it worked. I studied the code--dismantling and putting it back together. It took me quite a while and I'd like to share what I have learned. Hopefully this tutorial will be of use to you.
-        </p> -->
-        <!--         <p>
+        </p>
+        <p>
             We're going to build up the shader piecemeal. I expect you're familiar with shader built-in types, uniforms, textures, etc.
         </p>
- -->
+
         <!-- ************* -->
-        <!--   <h2>Step X: Empty Canvas</h2>
+        <h2>Step X: Empty Canvas</h2>
         <p>
             Let's start by filling the canvas with a solid color. Oh boy, much excitement.
         </p>
-        <textarea class='js-code' data-example='code/sketch-1.js'></textarea>
+        <textarea class='js-code'
+                  data-example='code/sketch-1.js'>
+        </textarea>
         <br/>
-        <textarea class='glsl-code' data-params='{"width":400,"height":200}' data-example='code/0.glsl'></textarea>
 
- -->
+        <textarea class='glsl-code'
+                  data-params='{"render":"false"}'
+                  data-example='../code/vert.glsl'>
+        </textarea>
+        <br />
+
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200}'
+                  data-example='code/0.glsl'>
+        </textarea>
+        <br />
+
+
 
         <!-- ************* -->
         <hr/>
@@ -43,7 +56,9 @@
         <p>
             Let's map a texture onto the canvas.
         </p>
-        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,5,6]}' data-example='code/texture.glsl'></textarea>
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,5,6]}'
+                  data-example='code/texture.glsl'></textarea>
 
         <p>
             We need 2 uniforms: a texture unit and a resolution.
@@ -56,12 +71,7 @@
             </code>
         </p>
         <p>
-            <!--
-            We need the resolution because we need to create a vector with normalized components.
-
-            Each fragment will be the result of sampling the texture.
-            the bottom left corner is 0,0. The top-right corner will be 1,1.
-        -->
+            We need the resolution because we need to create a vector with normalized components. Each fragment will be the result of sampling the texture. the bottom left corner is 0,0. The top-right corner will be 1,1.
         </p>
         <p>
             Looks like our texture is getting stretched. Well, what do you expect? The canvas is a rectangle and the texture is a square. We're doing a 1:1 mapping, so yeah, it'll get stretched. You'll also notice the texture is also upside down! What the shit? Well, that just won't do...
@@ -73,7 +83,8 @@
         </p>
 
         <div class='advanced'>
-            <img src="../public/icons/advanced.png" class="icon" />
+            <img src="../public/icons/advanced.png"
+                 class="icon" />
             <span>Texture repeating</span>
             <br />
             <p>
@@ -95,7 +106,9 @@
         <p>
             But since we have power of shaders, we can do the flip within the shader itself. Since we know that the maximum value of y is 1, we start with 1 and subtract whatever the y value is. This remaps the y-coordinates from 0..1 to 1..0.
         </p>
-        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[11]}' data-example='code/flip_y.glsl'></textarea> -->
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[11]}'
+                  data-example='code/flip_y.glsl'></textarea>
 
 
 
@@ -109,7 +122,9 @@
         <p>
             We scale the x component by 4 and apply mod. This ensures the final value will range from 0 to 1. The value 4 was arbitrary just to demonstrate that indeed the texture does repeat. Experiment with some values here as well as the second argument for mod. What does 2.0 do? 0.5?
         </p>
-        <!-- <textarea class='glsl-code' data-params='{"width":200,"height":200,"tex0":"tex/debug.png","lines":[12]}' data-example='code/repeat_tex.glsl'></textarea> -->
+        <textarea class='glsl-code'
+                  data-params='{"width":200,"height":200,"tex0":"tex/debug.png","lines":[12]}'
+                  data-example='code/repeat_tex.glsl'></textarea>
 
 
 
@@ -145,7 +160,8 @@
             Below is a graphical representation as well as a table to help better understand the relationship between x and y.
         </p>
 
-        <img src='img/graph.png' width="300px">
+        <img src='img/graph.png'
+             width="300px">
         <table class="darkTable">
             <thead>
                 <tr>
@@ -242,10 +258,13 @@
             <br />
             <br />
 
-            <img src='img/y_mod1x1.jpg' width='200px' />
+            <img src='img/y_mod1x1.jpg'
+                 width='200px' />
         </p>
 
-        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[12]}' data-example='code/perspective.glsl'></textarea>
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[12]}'
+                  data-example='code/perspective.glsl'></textarea>
 
         <p>
             Play with the equation. What about using 2.0/x? Try plugging in a few different constants.
@@ -259,7 +278,9 @@
             ....
         </p>
 
-        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png"}' data-example='code/centered.glsl'></textarea>
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200,"tex0":"tex/debug.png"}'
+                  data-example='code/centered.glsl'></textarea>
 
         <!-- ************* -->
         <hr/>
@@ -267,7 +288,9 @@
         <p>
             ....
         </p>
-        <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,10,11,12,13,14,15]}' data-example='code/circular.glsl'></textarea>
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[4,10,11,12,13,14,15]}'
+                  data-example='code/circular.glsl'></textarea>
 
 
 
@@ -278,7 +301,9 @@
         <p>
             The center of the demo has this mushyness. Let's fix that. And the solution is pretty simple. We're just going to cover it up :)
         </p>
-        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[16]}' data-example='code/fog.glsl'></textarea> -->
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200,"tex0":"tex/debug.png","lines":[16]}'
+                  data-example='code/fog.glsl'></textarea>
 
 
 
@@ -289,7 +314,9 @@
         <p>
             Finally, we're going to replace the debug image to the actual texture.
         </p>
-        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"tex0":"tex/tex.jpg"}' data-example='code/final.glsl'></textarea> -->
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200,"tex0":"tex/tex.jpg"}'
+                  data-example='code/final.glsl'></textarea>
 
 
 
@@ -300,7 +327,9 @@
         <p>
             Let's make it seem like the user is moving through the tunnel.
         </p>
-        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"loop":"true","tex0":"tex/tex.jpg","lines":[13]}' data-example='code/movement.glsl'></textarea> -->
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200,"loop":"true","tex0":"tex/tex.jpg","lines":[13]}'
+                  data-example='code/movement.glsl'></textarea>
 
 
 
@@ -310,14 +339,14 @@
         <p>
             What we have is great, but let's go one step further.
         </p>
-        <!-- <textarea class='glsl-code' data-params='{"width":400,"height":200,"loop":"true","tex0":"tex/tex.jpg","lines":[9,16]}' data-example='code/interactivity.glsl'></textarea> -->
-
-
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200,"loop":"true","tex0":"tex/tex.jpg","lines":[9,16]}'
+                  data-example='code/interactivity.glsl'></textarea>
 
 
         <!-- ********* -->
         <hr/>
-        <h2>Play time!</h2>
+        <h2 >Play time!</h2>
         <p>
             <ul class="exercises">
                 <li>Remove the fog from the final demo. Note what the center looks like. (hint: it's mush)</li>
