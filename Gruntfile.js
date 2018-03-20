@@ -1,8 +1,8 @@
 'use strict';
 
 module.exports = function(grunt) {
-
   const Livereload = 35729;
+  const fs = require('fs');
   const ServeStatic = require('serve-static');
 
   const dst = 'dst';
@@ -10,16 +10,12 @@ module.exports = function(grunt) {
   const tmp = '.tmp';
   const app = 'app';
 
-  // Probably a better way to do this with globbing, but I have no
-  // idea how
-  let chapters = ['00', '01', '02', '03', '04', '0x_effects'];
-  let chapterPaths = [];
-  chapters.forEach(function(v, i, a) {
-    let prefix = `${app}/chapters`;
-    chapterPaths.push({
-      'src': `${prefix}/${v}/index.html`,
-      'dest': `${prefix}/${v}/index.html`
-    });
+
+  // There's a bunch of chapters with index.html files
+  // that need to have their src html-processed.
+  let chapterPaths = fs.readdirSync('./src/chapters/').map( v => {
+    let path = `${app}/chapters/${v}/index.html`;
+    return { 'src': path, 'dest': path }
   });
 
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -41,7 +37,7 @@ module.exports = function(grunt) {
         `!${src}/js/vendor/**/*.js`
       ]
     },
-    
+
 
     /** 
      */
