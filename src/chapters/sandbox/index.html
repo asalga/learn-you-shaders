@@ -4,20 +4,39 @@
 <!-- build:include ../../html-templates/head_tag.html -->
 <!-- /build -->
 
+<style type="text/css">
+/*just for fun*/
+
+
+/*.CodeMirror {
+    position: absolute;
+    background-color: transparent;
+}
+
+.cm-s-default .cm-number,
+.cm-s-default .cm-keyword,
+.cm-s-default {
+    color: red !important;
+}*/
+</style>
+
 <body>
     <!-- <header> -->
     <!-- <h1 class="title">Learn you Shaders: Sandbox</h1> -->
     <!-- </header> -->
 
     <div id="content">
-
-        <hr>
+        <br>
         <textarea class='glsl-code'
                   data-params='{"width":400,"height":200}'
-                  data-example='code/python.glsl'>
+                  data-example='code/tao.glsl'>
         </textarea>
+        <hr>
 
-
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200}'
+                  data-example='code/blocks.glsl'>
+        </textarea>
         <hr>
         <textarea class='glsl-code'
                   data-params='{"width":400,"height":200}'
