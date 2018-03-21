@@ -7,8 +7,15 @@
 <style type="text/css">
 /*just for fun*/
 
-
-/*.CodeMirror {
+/*canvas {
+    border: 0 !important;
+}
+*/
+/*.CodeMirror cm-s-default{*/
+  /*border*/
+/*}*/
+/*
+.CodeMirror {
     position: absolute;
     background-color: transparent;
 }
@@ -17,6 +24,7 @@
 .cm-s-default .cm-keyword,
 .cm-s-default {
     color: red !important;
+    text-shadow: 1px 0px grey;
 }*/
 </style>
 
@@ -27,7 +35,20 @@
 
     <div id="content">
         <br>
+
         <textarea class='glsl-code'
+                  data-params='{"width":400,"height":200}'
+                  data-example='code/rect.glsl'>
+        </textarea>
+        <hr>
+
+        <textarea class='glsl-code'
+                  data-params='{"width":400,"height":400}'
+                  data-example='code/diag_split.glsl'>
+        </textarea>
+        <hr>
+
+<!--         <textarea class='glsl-code'
                   data-params='{"width":400,"height":200}'
                   data-example='code/tao.glsl'>
         </textarea>
@@ -51,7 +72,7 @@
         <textarea class='glsl-code'
                   data-params='{"width":400,"height":200}'
                   data-example='code/null.glsl'>
-        </textarea>
+        </textarea> -->
     </div>
 
     <!-- build:include ../../html-templates/footer.html -->
