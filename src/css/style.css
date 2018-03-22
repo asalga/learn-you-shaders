@@ -141,12 +141,12 @@ a:hover {
 
 .CodeMirror,
 .CodeMirror .cm-s-default {
-    border: 1px solid #aaa;
+    /*border: 1px solid #aaa;*/
     display: inline-block;
-    font-size: 14px;
+    /*font-size: 14px;*/
     height: auto !important;
-    min-width: 500px;
-    margin: 0 20px 14px 0;
+    /*min-width: 500px;*/
+    /*margin: 0 20px 14px 0;*/
 }
 
 .line-highlight {

@@ -99,7 +99,7 @@ function makeSketch(fs, params) {
     // only has some inline code that doesn't require CodeMirror
     if (!path) {
       CodeMirror.fromTextArea(t, {
-        lineNumbers: true,
+        lineNumbers: false,
         readOnly: true
       });
       return;
@@ -137,11 +137,21 @@ function makeSketch(fs, params) {
               'data-loader': 'customLoaderName'
             });
 
+            // let cvs = divContainer.find('canvas');
+            // console.log(cvs);
+            // window.cvs = cvs;
+
           $(t).prependTo(divContainer);
         }
 
+
+        let lines = true;
+        if(params && params.CodeMirror && params.CodeMirror.lineNumbers){
+          lines = (params.CodeMirror.lineNumbers === 'true') ? true : false;
+        }
+
         let cm = CodeMirror.fromTextArea(t, {
-          lineNumbers: true,
+          lineNumbers: lines,
           readOnly: true
         });
 
@@ -160,7 +170,17 @@ function makeSketch(fs, params) {
               let strParams = el.attr('data-lys-params');
               let relPath = el.attr('data-lys-relPath');
               let params = strParams ? JSON.parse(strParams) : {};
-              new p5(makeSketch(fragCode, params), relPath);
+              
+              let test = new p5(makeSketch(fragCode, params), relPath);
+              // console.log(test);
+              
+
+let target = $(test.canvas).parent().parent().parent().find('#target');
+$(test.canvas).appendTo(target);
+
+              // $(test.canvas).attr('id', relPath);
+              // window.test = test;
+              // $(test.canvas).appendTo($('#' + relPath));
             }
           });
         });
