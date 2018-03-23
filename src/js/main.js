@@ -4,22 +4,30 @@
 
 'use strict';
 
-$(window).ready(function() {});
-$(window).resize(function() {});
-
 Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
 };
+
+// Setup the animation loop.
+function animate(time) {
+  requestAnimationFrame(animate);
+  TWEEN.update(time);
+}
+requestAnimationFrame(animate);
+
 
 
 function makeSketch(fs, params) {
   const DefaultSketchWidth = 320;
   const DefaultSketchHeight = 240;
-  let sh;
+  let sh, w, h;
   let img0;
-  let w, h;
+
+  let timeVal = { t: 0 };
+  let sketchTime;
 
   var sketch = function(p) {
+
     p.preload = function() {
       let vs = `precision highp float;
                       varying vec2 vPos;
@@ -37,24 +45,43 @@ function makeSketch(fs, params) {
     p.setup = function() {
       w = params.width || DefaultSketchWidth;
       h = params.height || DefaultSketchHeight;
-      p.createCanvas(w, h, p.WEBGL);
+      sketchTime = 0;
+      var c = p.createCanvas(w, h, p.WEBGL);
       p.pixelDensity(1);
-      if (params.loop) {
-        // p.loop();
-      } else {
-        // p.noLoop();
-      }
+
+      // User hovers of the canvas. We start looping
+      // to keep track of the time.
+      c.mouseOver(e => {
+        TWEEN.removeAll();
+
+        new TWEEN.Tween(timeVal)
+          .to({ t: 1 }, 500)
+          .easing(TWEEN.Easing.Quadratic.Out)
+          .start();
+        p.loop();
+      });
+
+      c.mouseOut(e => {
+        TWEEN.removeAll();
+        new TWEEN.Tween(timeVal)
+          .to({ t: 0 }, 2000)
+          .easing(TWEEN.Easing.Quadratic.Out)
+          .onComplete(() => p.noLoop())
+          .start();
+      });
       p.noLoop();
     };
 
     p.draw = function() {
+      sketchTime += (1 / 60) * timeVal.t;
+
       p.shader(sh);
 
       if (fs.match(/uniform\s+vec2\s+u_res/)) {
         sh.setUniform('u_res', [w, h]);
       }
       if (fs.match(/uniform\s+float\s+u_time/)) {
-        sh.setUniform('u_time', p.millis() / 1000);
+        sh.setUniform('u_time', sketchTime);
       }
 
       // TODO: Add for loop here
@@ -137,16 +164,16 @@ function makeSketch(fs, params) {
               'data-loader': 'customLoaderName'
             });
 
-            // let cvs = divContainer.find('canvas');
-            // console.log(cvs);
-            // window.cvs = cvs;
+          // let cvs = divContainer.find('canvas');
+          // console.log(cvs);
+          // window.cvs = cvs;
 
           $(t).prependTo(divContainer);
         }
 
 
         let lines = true;
-        if(params && params.CodeMirror && params.CodeMirror.lineNumbers){
+        if (params && params.CodeMirror && params.CodeMirror.lineNumbers) {
           lines = (params.CodeMirror.lineNumbers === 'true') ? true : false;
         }
 
@@ -170,13 +197,13 @@ function makeSketch(fs, params) {
               let strParams = el.attr('data-lys-params');
               let relPath = el.attr('data-lys-relPath');
               let params = strParams ? JSON.parse(strParams) : {};
-              
+
               let test = new p5(makeSketch(fragCode, params), relPath);
               // console.log(test);
-              
 
-let target = $(test.canvas).parent().parent().parent().find('#target');
-$(test.canvas).appendTo(target);
+
+              let target = $(test.canvas).parent().parent().parent().find('#target');
+              $(test.canvas).appendTo(target);
 
               // $(test.canvas).attr('id', relPath);
               // window.test = test;

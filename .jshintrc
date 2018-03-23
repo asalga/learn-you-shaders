@@ -25,6 +25,7 @@
         "$": true,
         "p5": true,
         "jQuery": true,
-        "CodeMirror": true
+        "CodeMirror": true,
+        "TWEEN": true
     }
 }

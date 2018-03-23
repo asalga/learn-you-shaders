@@ -1,3 +1,8 @@
+@font-face {
+    font-family: angel;
+    src: url('../../ang.ttf');
+}
+
 body {
     margin: 40px 0px;
     background-color: #000;
@@ -9,8 +14,16 @@ body {
 
 h1,
 h2 {
-    margin: 1em;
+    color: #d7cb66;
+    font-family: angel;
+    font-size: 3em;
+    margin: 1em 0px;
     text-align: center;
+    text-shadow: 2px 2px 4px rgb(83, 81, 196);
+}
+
+h2 {
+    text-transform: capitalize;
 }
 
 .container {
@@ -42,7 +55,8 @@ canvas {
 }
 
 canvas:hover {
-    transform: scale(1.01, 1.01);
+    /*transform: scale(1.01, 1.01);*/
+    transform: scale(1.25);
     transition: 0.5s ease all;
 }
 
@@ -63,15 +77,12 @@ em {
 
 .cm-s-default .cm-number,
 .cm-s-default .cm-keyword,
+.cm-error,
 .cm-s-default {
     border-radius: 15px;
     font-size: 8px;
     color: black !important;
 }
-
-
-
-
 
 /* bah? */
 
