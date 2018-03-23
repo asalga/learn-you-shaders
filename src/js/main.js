@@ -8,14 +8,11 @@ Number.prototype.clamp = function(min, max) {
   return Math.min(Math.max(this, min), max);
 };
 
-// Setup the animation loop.
 function animate(time) {
   requestAnimationFrame(animate);
   TWEEN.update(time);
 }
 requestAnimationFrame(animate);
-
-
 
 function makeSketch(fs, params) {
   const DefaultSketchWidth = 320;
@@ -30,11 +27,11 @@ function makeSketch(fs, params) {
 
     p.preload = function() {
       let vs = `precision highp float;
-                      varying vec2 vPos;
-                      attribute vec3 aPosition;
-                      void main() {
-                        vPos = (gl_Position = vec4(aPosition,1.0)).xy;
-                      }`;
+                varying vec2 vPos;
+                attribute vec3 aPosition;
+                void main() {
+                  vPos = (gl_Position = vec4(aPosition,1.0)).xy;
+                }`;
       sh = p.createShader(vs, fs);
 
       if (params.tex0) {
@@ -49,13 +46,10 @@ function makeSketch(fs, params) {
       var c = p.createCanvas(w, h, p.WEBGL);
       p.pixelDensity(1);
 
-      // User hovers of the canvas. We start looping
-      // to keep track of the time.
       c.mouseOver(e => {
         TWEEN.removeAll();
-
         new TWEEN.Tween(timeVal)
-          .to({ t: 1 }, 500)
+          .to({ t: 1 }, 2500)
           .easing(TWEEN.Easing.Quadratic.Out)
           .start();
         p.loop();

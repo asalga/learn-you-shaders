@@ -12,5 +12,5 @@ void main(){
 
   float t = sin(uv.x + u_time/5.0 + phaseShift*1.0);
   float c = step(.5 * t, uv.y);
-  gl_FragColor = vec4(c,c,phaseShift, 1.);
+  gl_FragColor = vec4(c,c,c, 1.);
 }
