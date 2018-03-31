@@ -8,7 +8,7 @@
 
     <header>
         <h1 class="title">Learn you Shaders</h1>
-        <h1>Unit 3: 'Simple' Shapes</h1>
+        <h1>Unit 3: Signed Distance Fields</h1>
     </header>
     <hr/>
 
@@ -16,7 +16,107 @@
     <div id="content">
 
         <h2>Paradigm Shifting</h2>
-        <p>Remember when you first started writing Object-Oriented code? How is was a new way of looking at code? Or maybe when you started thinking in a purely procedural way. Well, shaders are another quite different way of programming. It may take some time to get adjusted to it.</p>
+        <p>
+            Remember when you first started writing Object-Oriented code? How is was a new way of looking at code? Or maybe when you started thinking in a purely procedural way. Well, shaders are another quite different way of programming. It may take some time to get adjusted to it. Let's start by learning how to draw simple shapes; circles, rectanles, line, etc. One method of doing this is to use 'distance map' (distance field/distance transform). Distance fields can be 'signed' meaning that any point can be said to either be inside or outside the shape.
+        </p>
+
+        <h2>Distance</h2>
+        <p>
+            When we talk about distance, you probably visualize 'straight-line' distance also known as <em>euclidean distance</em>. For example, the distance between two points. But there are other ways to measure distance!
+        </p>
+
+        <h2>Euclidean Distance</h2>
+
+        <h2>Manhattan Distance</h2>
+        <p>
+            We can also measure distance using <a href="https://en.wiktionary.org/wiki/Manhattan_distance">manhattan distance</a>. Imagine you're in Manhattan and you want to tell your friend to meet you at a restaurant. If they were a ghost, you could tell them: - "hover North-East until you reach me" That's straight-line distance. They'd be floating through buildings. But most of our friends are solid. We'd need to provide them with a different way to reaching us. So instead, we could say: - walk 4 blocks North, then 4 blocks East or - 3 block North, 4 East and 1 block North or if they like turning: - 1 North, 1 East, 1 North, 1 East, 1 North,..... - etc. Manhattan distance is the the sum of blocks/grids they move. So 4+4 = 8 1+4+3 = 8 1+1+1+1+1+1+1+1 = 8
+        </p>
+
+        <!-- ** -->
+        <h3>Circle</h3>
+        <p>
+            <!--
+            A very simple distance field to understand. All we need to do is calculate the distance of the current pixels from the center of the circle.
+            -->
+            We use euclidean distance to measure the distance of the pixel from the center of the circle.
+        </p>
+        <textarea class='glsl-code'
+                  data-params='{"width":300,"height":300}'
+                  data-example='code/circle.fs'>
+        </textarea>
+
+        <!-- ** -->
+        <h3>Square</h3>
+        <p></p>
+        <textarea class='glsl-code'
+                  data-params='{"width":300,"height":300}'
+                  data-example='code/square.fs'>
+        </textarea>
+
+        <!-- ** -->
+        <h3>Ellipse</h3>
+        <p>
+
+
+        </p>
+        <!-- <textarea class='glsl-code'
+                  data-params='{"width":300,"height":300}'
+                  data-example='code/ellipse.fs'>
+        </textarea>
+        -->
+
+        <!-- ** -->
+        <h3>Constructive Solid Geometry</h3>
+        <p>
+            We use 'signs' to determine if a given pixel resides 'inside' or 'outside' of a shape. The signs for us are either 0 or 1. Functions returns 1 if inside, 0 if outside.
+        </p>
+        <p>
+            We can create more complex shapes by multiplying, adding or subtracting the results of our functions.
+        </p>
+        <textarea class='glsl-code'
+                  data-params='{"width":300,"height":300}'
+                  data-example='code/venn.fs'>
+        </textarea>
+
+        <!-- ** -->
+        <h3>Unions: Creating a Heart</h3>
+        <p>
+            We can create a heart with the union of 2 circles and a diamond.
+        </p>
+        <textarea class='glsl-code'
+                  data-params='{"width":300,"height":300}'
+                  data-example='code/heart.fs'>
+        </textarea>
+
+        <h3>Intersections: </h3>
+        <p>
+            The intersection defines where both objects exist. If we want to get the intersection of two objects we just need to multiply the return values of the functions. Think of this as using a logical AND.
+        </p>
+
+
+
+        <!-- ********* -->
+        <hr/>
+        <h2>Play time!</h2>
+        <p>
+            <ul class="exercises">
+                <li>What is an isosurface?</li>
+                <li>What does it mean to say a surface is 'implicit'?</li>
+                <li>What is an isoline?</li>
+                <li>What is (CSG) Constructive Solid Geometry?</li>
+                <li>Use CSG to create a spade symbol</li>
+                <li>What is a distance field?</li>
+            </ul>
+        </p>
+
+        <!-- ********* -->
+        <hr/>
+        <h2>Readings</h2>
+        <p>
+            <ul class="exercises">
+                <li><a href="http://jcgt.org/published/0003/04/01/">Antialiased 2D Grid, Marker, and Arrow Shaders</a></li>
+            </ul>
+        </p>
 
     </div>
 
