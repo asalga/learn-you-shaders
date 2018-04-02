@@ -6,13 +6,13 @@ float circle(vec2 p, vec2 center, float r){
 }
 
 float diamond(vec2 p, vec2 c, float r){
-  return step(dot(abs(p-c), vec2(1.)), r);
+  return step(dot(abs(p-c), vec2(2.5, 2.5)), 1.);
 }
 
 float heart(vec2 p){
   return circle(p, vec2(-0.25,.4), .35) + 
   		 circle(p, vec2(.25,.4), .35) + 
-  		 diamond(p, vec2(0., 0.115), 0.45);
+  		 diamond(p, vec2(0., 0.115), 0.9);
 }
 
 void main(){

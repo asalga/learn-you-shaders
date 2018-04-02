@@ -38,6 +38,11 @@ ul.exercises li {
     margin-top: 20px;
 }
 
+ul.terms li {
+    margin-top: -5px;
+}
+
+
 p {
     max-width: 600px;
 }

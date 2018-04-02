@@ -3,7 +3,7 @@ uniform vec2 u_res;
 
 float squareSDF(vec2 p, float size){
   vec2 a = abs(p);
-  return step(max(a.x, a.y),0.25);
+  return max(a.x, a.y);
 }
 
 void main(){

@@ -8,56 +8,100 @@
 
     <header>
         <h1 class="title">Learn you Shaders</h1>
-        <h1>Unit 3: Signed Distance Fields</h1>
+        <!-- -->
     </header>
     <hr/>
-
-
     <div id="content">
+
+        <h1>Unit 3: Signed Distance Fields</h1>
+
+        <h2>Introduction</h2>
+        <p>
+            We're going to learn how to draw simple shapes using basically just some math. Pretty cool right? It's exciting stuff for sure. Before we dive in, let's take a look at why we'd want to do this.
+        </p>
+
+        <p>
+            Benefits
+            <ul>
+                <li> we only need a few lines of code to define</li>
+                <li>the 2D concepts can later be applied to rendering 3D shapes as well.</li>
+                <li>The technique is flexible. We can lerp two objects</li>
+            </ul>
+            Limitations
+            <ul>
+                <li>The code might initially be a bit difficult to grasp</li>
+                <li>The code isn't that intuitive</li>
+            </ul>
+        </p>
 
         <h2>Paradigm Shifting</h2>
         <p>
-            Remember when you first started writing Object-Oriented code? How is was a new way of looking at code? Or maybe when you started thinking in a purely procedural way. Well, shaders are another quite different way of programming. It may take some time to get adjusted to it. Let's start by learning how to draw simple shapes; circles, rectanles, line, etc. One method of doing this is to use 'distance map' (distance field/distance transform). Distance fields can be 'signed' meaning that any point can be said to either be inside or outside the shape.
+            Remember what it was like when you first started writing object-oriented code? It was probably a new way you had to look at code. Or maybe when you first learned about recursion. Your mind had to do some mental gymnastics to grasp some of the concepts.
+        </p>
+        <p>
+            Learning to draw shapes using shaders is a bit like that. It may take some time to get adjusted to it. Let's start by learning how to draw simple shapes; circles, rectanles, lines, etc.
+        </p>
+        <p>
+            The way we're going to achieve this is by using distance fields/distance functions also known as distance transforms. Distance fields can be 'signed' meaning that any point can be said to be either inside or outside of the shape.
         </p>
 
         <h2>Distance</h2>
         <p>
-            When we talk about distance, you probably visualize 'straight-line' distance also known as <em>euclidean distance</em>. For example, the distance between two points. But there are other ways to measure distance!
+            Since we'll be defining shapes based on distance, we should probably talk about that. Wait...what? Isn't distance simple? Yeah, it is. but there's actually a few ways we can measure distance.
         </p>
 
-        <h2>Euclidean Distance</h2>
+        <h3>Euclidean Distance</h3>
+        <p>
+            When we talk about distance, you probably visualize 'straight-line' distance also known as <em>euclidean distance</em>. For example, the distance between two points. But there are other ways to measure distance!
+        </p>
+        <p>
+            Mathemagically this is expressed:<br />
+            dist((x, y), (a, b)) = √(x - a)² + (y - b)²
+        </p>
 
-        <h2>Manhattan Distance</h2>
+        <h3>Manhattan Distance</h3>
         <p>
             We can also measure distance using <a href="https://en.wiktionary.org/wiki/Manhattan_distance">manhattan distance</a>. Imagine you're in Manhattan and you want to tell your friend to meet you at a restaurant. If they were a ghost, you could tell them: - "hover North-East until you reach me" That's straight-line distance. They'd be floating through buildings. But most of our friends are solid. We'd need to provide them with a different way to reaching us. So instead, we could say: - walk 4 blocks North, then 4 blocks East or - 3 block North, 4 East and 1 block North or if they like turning: - 1 North, 1 East, 1 North, 1 East, 1 North,..... - etc. Manhattan distance is the the sum of blocks/grids they move. So 4+4 = 8 1+4+3 = 8 1+1+1+1+1+1+1+1 = 8
         </p>
+        <p>
+            Mathemagically:<br />
+            |x1 - x2| + |y1 - y2|<br />
+        </p>
 
-        <!-- ** -->
+        <h3>Chebyshev Ditance</h3>
+        <p>
+            With Chebyshev distance, each 'block' next to the target 'block' or 'pixel' is 1 unit away. Think about this in terms of chess. The king being as lazy as he is, can only move 1 square vertically, horizontall or diagonally.
+        </p>
+
+        <!-- ********* CIRCLE ********* -->
         <h3>Circle</h3>
         <p>
-            <!--
-            A very simple distance field to understand. All we need to do is calculate the distance of the current pixels from the center of the circle.
-            -->
-            We use euclidean distance to measure the distance of the pixel from the center of the circle.
+            A circle is defined by its center and its radius. Any pixel 'radius' length away from the center would satisfy the equation of the circle. Meaning that pixel would  be inside the circle.
+        </p>
+        <p>
+            Fragment shaders are execute for each pixel, so thinking like a computer, we'd iterate over each pixel and get the distance from the center. What kind of measurement is this? It's Euclidean!
         </p>
         <textarea class='glsl-code'
                   data-params='{"width":300,"height":300}'
                   data-example='code/circle.fs'>
         </textarea>
 
-        <!-- ** -->
+        <!-- ********* SQUARE ********* -->
         <h3>Square</h3>
-        <p></p>
+        <p>
+            A square has 4 sides of equal length. When we iterate over each pixel, we need to assign that pixel a value of how far away it is from square. Technically, how far away it is from the 'target' edge. Play around with the sketch and you'll notice that if we're on the right side of the square, the X values are always greater than the Y values. And at the top of the square, the Y values are always greater than the X values.  
+        </p>
+        <p>
+            If we're on the right side, we need to get the distance from the right edge, just getting the x distance. Similarly, if the current pixel is top of the square, we'd need to get the Y value. But since the X values are always greater on the right side, all we need do do is use max() to get the greater of the two components.
+        </p>
         <textarea class='glsl-code'
                   data-params='{"width":300,"height":300}'
                   data-example='code/square.fs'>
         </textarea>
 
-        <!-- ** -->
+        <!-- ********* ELLIPSE ********* -->
         <h3>Ellipse</h3>
         <p>
-
-
         </p>
         <!-- <textarea class='glsl-code'
                   data-params='{"width":300,"height":300}'
@@ -88,12 +132,23 @@
                   data-example='code/heart.fs'>
         </textarea>
 
-        <h3>Intersections: </h3>
+        <h3>Intersections:</h3>
         <p>
             The intersection defines where both objects exist. If we want to get the intersection of two objects we just need to multiply the return values of the functions. Think of this as using a logical AND.
         </p>
 
-
+        <!-- ********* -->
+        <hr/>
+        <h2>Summary</h2>
+        <p>
+            <ul class="exercises">
+                <li>We can create shapes with only a few lines of code</li>
+                <li>the 2D concepts can later be applied to rendering 3D shapes as well.</li>
+                <li>The technique is flexible. We can lerp two objects</li>
+                <li>The code might initially be a bit difficult to grasp</li>
+                <li>The code isn't that intuitive</li>
+            </ul>
+        </p>
 
         <!-- ********* -->
         <hr/>
@@ -101,6 +156,7 @@
         <p>
             <ul class="exercises">
                 <li>What is an isosurface?</li>
+                <li>Define your own distance. Use it to create a shape</li>
                 <li>What does it mean to say a surface is 'implicit'?</li>
                 <li>What is an isoline?</li>
                 <li>What is (CSG) Constructive Solid Geometry?</li>
@@ -117,6 +173,22 @@
                 <li><a href="http://jcgt.org/published/0003/04/01/">Antialiased 2D Grid, Marker, and Arrow Shaders</a></li>
             </ul>
         </p>
+
+
+        <!-- ********* -->
+        <hr/>
+        <h2>Terms</h2>
+        <p>
+            <ul class="terms">
+                <li>distance field/map/function</li>
+                <li>isosurface</li>
+                <li>isoline</li>
+                <li>constructive solid geometry</li>
+                <li>distance (euclidean/manhattan)</li>
+            </ul>
+        </p>
+
+
 
     </div>
 
