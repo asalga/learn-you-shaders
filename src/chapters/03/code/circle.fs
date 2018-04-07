@@ -3,7 +3,7 @@ uniform vec2 u_res;
 uniform vec3 u_mouse;
 
 float circleSDF(vec2 p, float r){
-  return length(p);
+  return length(p) - r;
 }
 
 bool closeEnough(float a, float b, float epsilon){
@@ -12,7 +12,8 @@ bool closeEnough(float a, float b, float epsilon){
 
 void main(){
   vec2 p = gl_FragCoord.xy/u_res * 2. - 1.;
-  float i = circleSDF(p, .5);
+  float i =  circleSDF(p, .5);
+
   gl_FragColor = vec4(vec3(i), 1.);
   
   float len = length((u_mouse.xy/u_res)*2.-1.);

@@ -8,14 +8,13 @@
 
     <header>
         <h1 class="title">Learn you Shaders</h1>
-        <!-- -->
     </header>
     <hr/>
     <div id="content">
 
-        <h1>Unit 3: Signed Distance Fields</h1>
+        <!-- <h1>Unit 3: Signed Distance Fields</h1> -->
 
-        <h2>Introduction</h2>
+        <!--    <h2>Introduction</h2>
         <p>
             We're going to learn how to draw simple shapes using basically just some math. Pretty cool right? It's exciting stuff for sure. Before we dive in, let's take a look at why we'd want to do this.
         </p>
@@ -55,8 +54,8 @@
             When we talk about distance, you probably visualize 'straight-line' distance also known as <em>euclidean distance</em>. For example, the distance between two points. But there are other ways to measure distance!
         </p>
         <p>
-            Mathemagically this is expressed:<br />
-            dist((x, y), (a, b)) = √(x - a)² + (y - b)²
+            Mathemagically this is expressed:
+            <br /> dist((x, y), (a, b)) = √(x - a)² + (y - b)²
         </p>
 
         <h3>Manhattan Distance</h3>
@@ -64,32 +63,93 @@
             We can also measure distance using <a href="https://en.wiktionary.org/wiki/Manhattan_distance">manhattan distance</a>. Imagine you're in Manhattan and you want to tell your friend to meet you at a restaurant. If they were a ghost, you could tell them: - "hover North-East until you reach me" That's straight-line distance. They'd be floating through buildings. But most of our friends are solid. We'd need to provide them with a different way to reaching us. So instead, we could say: - walk 4 blocks North, then 4 blocks East or - 3 block North, 4 East and 1 block North or if they like turning: - 1 North, 1 East, 1 North, 1 East, 1 North,..... - etc. Manhattan distance is the the sum of blocks/grids they move. So 4+4 = 8 1+4+3 = 8 1+1+1+1+1+1+1+1 = 8
         </p>
         <p>
-            Mathemagically:<br />
-            |x1 - x2| + |y1 - y2|<br />
+            Mathemagically:
+            <br /> |x1 - x2| + |y1 - y2|
+            <br />
         </p>
 
         <h3>Chebyshev Ditance</h3>
         <p>
             With Chebyshev distance, each 'block' next to the target 'block' or 'pixel' is 1 unit away. Think about this in terms of chess. The king being as lazy as he is, can only move 1 square vertically, horizontall or diagonally.
         </p>
+ -->
 
-        <!-- ********* CIRCLE ********* -->
-        <h3>Circle</h3>
+
+
+
+        <h1>Circles</h1>
         <p>
-            A circle is defined by its center and its radius. Any pixel 'radius' length away from the center would satisfy the equation of the circle. Meaning that pixel would  be inside the circle.
+            A circle can be defined by a position of its center point and it's radius. We're going to keep things simple and image our circle rests at the origin. This means, we only need to provide a radius parameter to define a circle.
+
+            <!-- Any pixel less than 'radius' length away from the center would satisfy the equation of the circle. Meaning that pixel would be inside the circle. -->
+        </p>
+
+        <p>
+            Our goal is to write a function that accepts the current fragment coordinate and circle parameters. The function will return the distance of the coordinate from the closest edge of the circle.
+        </p>
+
+        <p>
+            That function will be our 'pure' distance function. We can later pass the return value into another function to decide if the fragment should be rendered.
+        </p>
+
+
+
+
+        <p>
+            If the cirlce is at the origin, we simplify the standard equation: $$r^2 = x^2 + y^2$$ $$r = \sqrt{x^2 + y^2}$$
+        </p>
+
+        <p>
+            Lastly, we can re-arrange the terms thus: $$0 = \sqrt{x^2 + y^2} - r$$
+
+            Which means that if we calculate the length of the vector formed by point p from the origin and subtract the radius we provided, the value must obviously be equal to zero. Otherwise the vector formed by point p from the origin does not lie on the circle.
+        </p>
+
+        <p>
+            Let's see what that would look like:
+            $$0 = \sqrt{x^2 + y^2} - r$$
+            $$0 = \sqrt{0.7071067812^2 + 0.7071067812^2} - 1$$
+            $$0 =  1 - 1$$
+            Happy times :)
+        </p>
+
+        <p>
+            Let's say that we were given a point with \(x\) and \(y\) coordinates on a graph and we calculated the distance from the origin using euclidean distance. If that distance value was equal to the radius we provided, it would mean that the equation is satisfied and the point lies on the edge of the circle.
         </p>
         <p>
-            Fragment shaders are execute for each pixel, so thinking like a computer, we'd iterate over each pixel and get the distance from the center. What kind of measurement is this? It's Euclidean!
+            ** image of unit circle sketch **
+        </p>
+
+        <p>
+            If we throw in some random point \(p=[100,200]\) $$\sqrt{10^2 + 10^2} = 22.3606$$ Does \(1.0 = 22.3606\) make any sense? Nope. Not in the least. Those two number are not equal. What does this mean? It means that point \((10,20)\) certainly doesn't satisfy the equation and therefore doesn't lie on the circle edge.
+        </p>
+
+        <!--    <p>
+            The fragment shaders we write are executed for each pixel, so thinking like a computer, we'd iterate over each pixel and get the distance from the center. What kind of measurement is this? It's Euclidean!
         </p>
         <textarea class='glsl-code'
                   data-params='{"width":300,"height":300}'
                   data-example='code/circle.fs'>
         </textarea>
+ -->
+        <textarea class='glsl-snippet'>
+float circle(vec2 p, float r){
+  return sqrt(p.x * p.x + p.y * p.y) - r;
+}</textarea>
 
-        <!-- ********* SQUARE ********* -->
+        <p>
+            GLSL has a built-in function called length that simplifies some of our code:
+            <p>
+                <textarea class='glsl-snippet'>float circle(vec2 p, float r){
+  return length(p) - r;
+}</textarea>
+
+
+
+                <!-- 
         <h3>Square</h3>
         <p>
-            A square has 4 sides of equal length. When we iterate over each pixel, we need to assign that pixel a value of how far away it is from square. Technically, how far away it is from the 'target' edge. Play around with the sketch and you'll notice that if we're on the right side of the square, the X values are always greater than the Y values. And at the top of the square, the Y values are always greater than the X values.  
+            A square has 4 sides of equal length. When we iterate over each pixel, we need to assign that pixel a value of how far away it is from square. Technically, how far away it is from the 'target' edge. Play around with the sketch and you'll notice that if we're on the right side of the square, the X values are always greater than the Y values. And at the top of the square, the Y values are always greater than the X values.
         </p>
         <p>
             If we're on the right side, we need to get the distance from the right edge, just getting the x distance. Similarly, if the current pixel is top of the square, we'd need to get the Y value. But since the X values are always greater on the right side, all we need do do is use max() to get the greater of the two components.
@@ -99,17 +159,17 @@
                   data-example='code/square.fs'>
         </textarea>
 
-        <!-- ********* ELLIPSE ********* -->
-        <h3>Ellipse</h3>
-        <p>
-        </p>
-        <!-- <textarea class='glsl-code'
-                  data-params='{"width":300,"height":300}'
-                  data-example='code/ellipse.fs'>
-        </textarea>
-        -->
 
-        <!-- ** -->
+
+
+
+
+ -->
+
+
+
+                <!-- 
+
         <h3>Constructive Solid Geometry</h3>
         <p>
             We use 'signs' to determine if a given pixel resides 'inside' or 'outside' of a shape. The signs for us are either 0 or 1. Functions returns 1 if inside, 0 if outside.
@@ -121,8 +181,12 @@
                   data-params='{"width":300,"height":300}'
                   data-example='code/venn.fs'>
         </textarea>
+ -->
 
-        <!-- ** -->
+
+
+
+                <!-- 
         <h3>Unions: Creating a Heart</h3>
         <p>
             We can create a heart with the union of 2 circles and a diamond.
@@ -137,7 +201,7 @@
             The intersection defines where both objects exist. If we want to get the intersection of two objects we just need to multiply the return values of the functions. Think of this as using a logical AND.
         </p>
 
-        <!-- ********* -->
+        
         <hr/>
         <h2>Summary</h2>
         <p>
@@ -148,9 +212,13 @@
                 <li>The code might initially be a bit difficult to grasp</li>
                 <li>The code isn't that intuitive</li>
             </ul>
-        </p>
+        </p> -->
 
-        <!-- ********* -->
+
+
+
+                <!-- 
+
         <hr/>
         <h2>Play time!</h2>
         <p>
@@ -165,7 +233,6 @@
             </ul>
         </p>
 
-        <!-- ********* -->
         <hr/>
         <h2>Readings</h2>
         <p>
@@ -174,19 +241,19 @@
             </ul>
         </p>
 
-
-        <!-- ********* -->
-        <hr/>
-        <h2>Terms</h2>
-        <p>
-            <ul class="terms">
-                <li>distance field/map/function</li>
-                <li>isosurface</li>
-                <li>isoline</li>
-                <li>constructive solid geometry</li>
-                <li>distance (euclidean/manhattan)</li>
-            </ul>
-        </p>
+ -->
+                <!-- ********* -->
+                <hr/>
+                <h2>Terms</h2>
+                <p>
+                    <ul class="terms">
+                        <li>distance field/map/function</li>
+                        <li>isosurface</li>
+                        <li>isoline</li>
+                        <li>constructive solid geometry</li>
+                        <li>distance (euclidean/manhattan)</li>
+                    </ul>
+                </p>
 
 
 
